@@ -1,0 +1,33 @@
+baseurl = "/"
+languageCode = "en-us"
+theme = "hugo-theme-terminal"
+paginate = 10
+
+ignoreFiles = ["_files$", "_cache$"]
+
+[params]
+  contentTypeName = "post"
+  themeColor = "green"
+  showMenuItems = 2
+  fullWidthTheme = false
+  centerTheme = false
+
+[languages]
+  [languages.en]
+    title = "The Lapsed Geographer"
+    subtitle = ""
+    keywords = ""
+    copyright = "&copy; 2020 Matt Kerlogue"
+    menuMore = "Show more"
+    readMore = "Read more"
+    readOtherPosts = "Read other posts"
+
+    [languages.en.params.logo]
+      logoText = "The Lapsed Geographer"
+      logoHomeLink = "/"
+
+    [languages.en.menu]
+      [[languages.en.menu.main]]
+        identifier = "about"
+        name = "About"
+        url = "/about"
