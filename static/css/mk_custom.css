@@ -73,3 +73,8 @@ aside > h2 {
 aside ul {
   margin-top: 0px !important;
 }
+
+figure img {
+  padding: 10px;
+  border: 2px solid var(--accent);
+}
