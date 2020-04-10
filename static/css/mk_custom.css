@@ -52,6 +52,13 @@ ul.archive-list {
   padding-right: 1em;
 }
 
+.reading-time {
+  color: #ffffff;
+  opacity: 0.5;
+  font-size: 0.8em;
+  padding-left: 1em;
+}
+
 footer div {
   font-size: 12px !important;
 }

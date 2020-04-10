@@ -9,7 +9,8 @@
       {{ range (where .Pages "Type" "post") }}
       <li>
         <span class="archive-date">{{ .PublishDate.Format "02 Jan" }}</span>
-        <a class ="archie-post" href="{{ .RelPermalink}}">{{ .Title }}</a>
+        <a class ="archive-post" href="{{ .RelPermalink}}">{{ .Title }}</a>
+        <span class="reading-time">[{{ .ReadingTime }} minute read]</span>
       </li>
       {{ end }}
       
