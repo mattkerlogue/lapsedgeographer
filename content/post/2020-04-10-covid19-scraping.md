@@ -14,11 +14,11 @@ tags:
   - pdftools
 ---
 
-Last week Google published their [COVID-19 Community Mobility Reports](https://www.google.com/covid19/mobility/). These make use of Google's very extensive location history data, which they mainly use for telling about traffic levels on roads, popular times for places in Google Maps bad whether a bar or restaurant is busier than usual. In these reports they've looked at the location history data for a large number of countries, and localities within countries to help public health officials review the effectiveness of social distancing measures.
+Last week Google published their [COVID-19 Community Mobility Reports](https://www.google.com/covid19/mobility/). These make use of Google's very extensive location history data, which they mainly use for telling you about traffic levels on roads, popular times for places in Google Maps and whether a bar or restaurant is busier than usual. In these mobility reports they've looked at the location history data for a large number of countries, and localities within countries to help public health officials review the effectiveness of social distancing measures.
 
-[Social distancing](https://en.wikipedia.org/wiki/Social_distancing) is one of the key non-medical interventions that governments have been putting in place to deal with the COVID-19 outbreak. So data about where people are/aren't going is crucial to understanding the effectiveness of the social distancing measures. Full credit to Google for putting their data to good use to provide public health officials and governments with analysis they can use in policy-making.
+[Social distancing](https://en.wikipedia.org/wiki/Social_distancing) is one of the key non-medical interventions that governments have been putting in place to deal with the COVID-19 outbreak. So data about where people are/aren't going is crucial to understanding the effectiveness of the social distancing measures that have been put in place. Full credit to Google for putting their data to good use and providing public health officials and governments with analysis they can use in policy-making.
 
-But... the data has been published in PDF format, and while this makes it easy to view at a glance it's not that easy to reuse or plug into other things. To be honest, I'm quite surprised it's not also available in a spreadsheet of some sort.
+But... the data has been published in PDF format, so while this makes it easy to view at a glance it's not that easy to reuse or plug into other things. To be honest, I'm quite surprised it's not also available in a spreadsheet of some sort of machine-readable format.
 
 So, last Friday I set out to write some code to scrape the reports. Initially this was just to get the data from the UK report, but as the PDFs have a standardised format it can be, and was, easily applied to the reports for all countries and US states. You can view and download the code yourself from this GitHub [repo](http://github.com/mattkerlogue/google-covid-mobility-scrape/).
 
@@ -26,11 +26,11 @@ So, last Friday I set out to write some code to scrape the reports. Initially th
 {{<addTOC>}}
 
 ## Getting started
-First off, I'm by no means an expert at web/PDF scraping, all I've learnt about it I've *learnt-by-doing*. My code is simply extracting the headline comparison figures that are written in the reports. Colleagues at the [ONS' Data Science Campus](https://datasciencecampus.ons.gov.uk) have done an excellent job and have developed a [tool](https://github.com/datasciencecampus/mobility-report-data-extractor) to extract the trend-line [data](https://github.com/datasciencecampus/google-mobility-reports-data) from the reports.  Duncan Garmonsway  has then [ported the ONS code to R](https://github.com/nacnudus/google-location-coronavirus/). Even so, I'm sure the headline figures are still useful to have, especially if you want to compare many areas.
+First off, I'm by no means an expert at web/PDF scraping, all I've learnt about it I've *learnt-by-doing*. My code is simply extracting the headline comparison figures that are written in the reports. Colleagues at the [ONS' Data Science Campus](https://datasciencecampus.ons.gov.uk) have done an excellent job and have developed a [tool](https://github.com/datasciencecampus/mobility-report-data-extractor) to extract the trend-line [data](https://github.com/datasciencecampus/google-mobility-reports-data) from the reports.  Duncan Garmonsway  has then [ported the ONS code to R](https://github.com/nacnudus/google-location-coronavirus/). Even so, I'm sure the headline figures are still useful to have, especially if you want to compare several areas at once.
 
 We could just download the relevant PDF, i.e. the UK one, and transpose the numbers by hand to a spreadsheet: (a) that sounds like a really fun job!!; (b) especially if they update the reports; and, (c) it wouldn't make much of a blog post.
 
-To start with I did download the UK PDF in order to explore its structure, but I quickly changed even that initial script to work from the URL of the PDF. I then went about automating the process to extract the data for all PDFs and then to handle the PDFs being updated on a regular basis. This post sets out the approach to scraping a single PDF report, a future post will describe the approach to automating this for all reports.
+To start with I did download the UK PDF in order to explore its structure, but I quickly changed even that initial scripting to work from the URL of the PDF. I then went about automating the process to extract the data for all PDFs and then to handle the PDFs being updated on a regular basis. This post sets out the approach to scraping a single PDF report, a future post will describe the approach to automating this for all reports.
 
 ## PDF scraping
 Scraping the PDFs is done using the [`{pdftools}`](https://docs.ropensci.org/pdftools/) package from ROpenSci. This is a really good and easy to use package for working with PDFs in R. The code uses `pdftools::pdf_data()` to extract the data, which is a rather amazing function.
@@ -40,11 +40,11 @@ url <- "https://www.gstatic.com/covid19/mobility/2020-04-05_GB_Mobility_Report_e
 report_data <- pdftools::pdf_data(url)
 ```
 
-`report_data` is a list of tibbles where each tibble represents a page of the PDF, each tibble contains data about all of the text on that page. So `report_data[[2]]` is the data about all the text elements of page 2 of the PDF.
+This code gives us `report_data`, which is a list of tibbles where each tibble represents a single page of the PDF and each tibble contains data about all of the text on that page. So `report_data[[2]]` is the data about all the text elements of page 2 of the PDF.
 
 The tibble for page 2 of the UK's PDF looks like this:
 
-```
+``` 
 | width| height|   x|   y|space |text     |
 |-----:|------:|---:|---:|:-----|:--------|
 |    33|     13|  36|  36|TRUE  |Transit  |
@@ -110,7 +110,7 @@ And now we have a nice simple tibble, `national_datapoints`, that contains the n
 
 ## Sub-national data
 
-The sub-national data for the UK is included at page 3 until page 77, however to make the code suitable for running on any PDF let's subset `report_data` dynamically to the penultimate page, which we can do by getting the `length()` of `report_data` and subtracting one from it. As with the national data let's pass this through `purrr::mapd_dfr()` to create a single tibble of all sub-national text entities.
+The sub-national data for the UK is included at page 3 until page 77, however to make the code suitable for running on any PDF let's subset `report_data` dynamically to the penultimate page, which we can do by getting the `length()` of `report_data` and subtracting one from it. As with the national data let's pass this through `purrr::map_dfr()` to create a single tibble of all sub-national text entities.
 
 ```r
 subnational_pages <- report_data[3:(length(report_data)-1)]
@@ -194,7 +194,7 @@ locations <- subnational_datapoints %>%
   select(page, position, location)
 ````
 
-First we filter the `subnational_datapoints` tibble to just the location entities, and then we take just the `page`, `position` and `text` columns. Using `dplyr::group_by()` and `tidyr::nest()` we convert the tibble into a "grouped data frame", so the main tibble is now one row per page and position with a column called `data` that contains a tibble in each row of the other columns from the original tibble. In this case these per-page-position tibbles are just a single column, `text`. We can now apply `purrr::map_chr()` to this data column to work with all the information in each nested tibble. As we want to stitch the words together we can just use `paste()`. The resulting character string is a bit messy so the code runs a series of `stringr::str_remove_all()` and `stringr::str_replace_all()` commands to simplify into a label. Finally, let's just select the `page`, `position` and new `location` columns, and now we have a list of locations that we can merge with our data.
+First we filter the `subnational_datapoints` tibble to just the location entities, and then we take just the `page`, `position` and `text` columns. Using `dplyr::group_by()` and `tidyr::nest()` we convert the tibble into a "grouped data frame", so the main tibble is now one row per page and position with a column called `data` that contains a tibble in each row of the other columns from the original tibble. In this case these per-page-position tibbles are just a single column, `text`. We can now apply `purrr::map_chr()` to this data column to work with all the information in each nested tibble. As we want to stitch the words together we can just use `paste()`. The resulting character string is a bit messy so the code runs a series of `stringr::str_remove_all()` and `stringr::str_replace_all()` commands to simplify into a label. Finally, let's select just the `page`, `position` and new `location` columns, and now we have a list of locations that we can merge with our data.
 
 ```r
 location_data <- subnational_datapoints %>%
