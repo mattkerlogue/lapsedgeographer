@@ -88,4 +88,12 @@ figure img {
 
 pre {
   white-space: pre !important;
+  word-wrap: normal !important;
+}
+
+@media screen {
+  pre {
+    white-space: pre !important;
+    word-wrap: normal !important;
+  }
 }
