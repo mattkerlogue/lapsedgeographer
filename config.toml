@@ -1,4 +1,4 @@
-baseurl = "/"
+baseURL = "https://lapsedgeographer.london/"
 languageCode = "en-us"
 theme = "hugo-theme-terminal"
 paginate = 10
@@ -52,3 +52,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
     endLevel = 2
     ordered = false
     startLevel = 2
+
+[outputFormats]
+    [outputFormats.RSS]
+        baseName = "rss"
