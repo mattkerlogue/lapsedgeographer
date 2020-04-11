@@ -85,3 +85,7 @@ figure img {
   padding: 10px;
   border: 2px solid var(--accent);
 }
+
+pre {
+  white-space: pre !important;
+}
