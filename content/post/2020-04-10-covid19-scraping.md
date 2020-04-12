@@ -22,7 +22,6 @@ But... the data has been published in PDF format, so while this makes it easy to
 
 So, last Friday I set out to write some code to scrape the reports. Initially this was just to get the data from the UK report, but as the PDFs have a standardised format it can be, and was, easily applied to the reports for all countries and US states. You can view and download the code yourself from this GitHub [repo](http://github.com/mattkerlogue/google-covid-mobility-scrape/).
 
-
 {{<addTOC>}}
 
 ## Getting started
@@ -44,7 +43,7 @@ This code gives us `report_data`, which is a list of tibbles where each tibble r
 
 The tibble for page 2 of the UK's PDF looks like this:
 
-``` 
+```
 | width| height|   x|   y|space |text     |
 |-----:|------:|---:|---:|:-----|:--------|
 |    33|     13|  36|  36|TRUE  |Transit  |
@@ -73,7 +72,7 @@ Now we have a single tibble that contains all the data we need to extract. So le
 
 ```r
 national_datapoints <- national_data %>%
-  filter(y == 369 | y == 486 | y == 603 | 
+  filter(y == 369 | y == 486 | y == 603 |
          y == 62  | y == 179 | y == 296) %>%
   mutate(
     entity = case_when(
@@ -131,7 +130,7 @@ Again, in inspecting `subnational_data` it was possible to identify that locatio
 
 ``` r
 subnational_datapoints <- subnational_data %>%
-  filter(y == 36  | y == 104 | y == 242 | 
+  filter(y == 36  | y == 104 | y == 242 |
          y == 363 | y == 431 | y == 568) %>%
   mutate(
     entity = case_when(
@@ -181,7 +180,7 @@ Most of the sub-national locations in the UK report (and those of other countrie
 This is the location data from the first two sub-national pages, only one of the four locations has a single word name, Aberdeenshire, the other three are multi-word names: Aberdeen City; Angus council; Antrim And Newtownabbey. So how do we combine these together? Our friend the `{purrr}` package is back to the rescue, this time though `purrr::map_chr()` which outputs a character vector.
 
 ```r
-locations <- subnational_datapoints %>% 
+locations <- subnational_datapoints %>%
   filter(entity == "location") %>%
   select(page, position, text) %>%
   group_by(page, position) %>%
