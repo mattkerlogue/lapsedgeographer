@@ -44,6 +44,8 @@ This code gives us `report_data`, which is a list of tibbles where each tibble r
 The tibble for page 2 of the UK's PDF looks like this:
 
 ```
+> report_data[[2]]
+
 | width| height|   x|   y|space |text     |
 |-----:|------:|---:|---:|:-----|:--------|
 |    33|     13|  36|  36|TRUE  |Transit  |
@@ -97,6 +99,8 @@ While we could use the code to also locate the labels for these entities, given 
 And now we have a nice simple tibble, `national_datapoints`, that contains the national percentages from the UK's mobility report.
 
 ```
+> national_datapoints
+
 |date       |country |location        |entity        | value|
 |:----------|:-------|:---------------|:-------------|-----:|
 |2020-04-05 |GB      |COUNTRY OVERALL |retail_recr   | -0.82|
@@ -165,6 +169,8 @@ Again we can use `dplyr::case_when()` to label each of these entities, which we 
 Most of the sub-national locations in the UK report (and those of other countries) have more than one word in their name. `pdftools::pdf_data()` treats each word as a separate entity, and so appears as a separate row in the resulting tibble(s). This is why we didn't match the location label to a given x-coordinate, so that we can pick up all of the words used to describe locations.
 
 ```
+> subnational_datapoints
+
 |page | width| height|   x|   y|space |text          |entity   |position |
 |:----|-----:|------:|---:|---:|:-----|:-------------|:--------|:--------|
 |1    |    75|     20|  36|  36|TRUE  |Aberdeen      |location |first    |
@@ -208,6 +214,8 @@ location_data <- subnational_datapoints %>%
 Using `dplyr::left_join()` we can merge our new location labels with the extracted data using the page and position as the matching keys. Now that we've got nice location labels attached to the data we can drop the rows relating to the location entity. As with the national data we convert the percentages to a value and add the data and country from the file name. This gives us a 'long' tibble of all the data points by location.
 
 ```
+> location_data
+
 |date       |country |location                |entity        | value|
 |:----------|:-------|:-----------------------|:-------------|-----:|
 |2020-04-05 |GB      |Aberdeen City           |retail_recr   | -0.84|
@@ -218,15 +226,11 @@ Using `dplyr::left_join()` we can merge our new location labels with the extract
 |2020-04-05 |GB      |Aberdeen City           |residential   |  0.30|
 ```
 
-Depending on our uses it might be better to turn this into `wide` format using `tidyr::pivot_wider()`
-
-```r
-location_data %>% pivot_wider(names_from = "entity", values_from = "value")
-```
-
-Here's the data for the first five sub-national locations in the UK report.
+Depending on our uses it might be better to turn this into `wide` format using `tidyr::pivot_wider()`.
 
 ```
+> location_data %>% pivot_wider(names_from = "entity", values_from = "value")
+
 |date       |country |location                | retail_recr| grocery_pharm| parks| transit| workplace| residential|
 |:----------|:-------|:-----------------------|-----------:|-------------:|-----:|-------:|---------:|-----------:|
 |2020-04-05 |GB      |Aberdeen City           |       -0.84|         -0.37| -0.39|   -0.71|     -0.57|        0.30|
