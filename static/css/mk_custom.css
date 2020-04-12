@@ -97,3 +97,12 @@ pre {
     word-wrap: normal !important;
   }
 }
+
+section.footnotes {
+  padding-top: 2em;
+  font-size: 0.8em !important;
+}
+
+section.footnotes  code {
+  font-size: 1em !important;
+}
