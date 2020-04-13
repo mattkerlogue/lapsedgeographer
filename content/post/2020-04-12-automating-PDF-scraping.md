@@ -12,6 +12,8 @@ tags:
   - rvest
   - pdftools
   - automation
+  - github
+  - github-actions
 ---
 
 In my [last post](/2020-04/covid19-scraping) I wrote about the process for scraping data from Google's [COVID-19 Community Mobility Reports](https://www.google.com/covid19/mobility/). That post dealt with processing just one report, the one for the UK, but Google have published reports for around 130 countries and one for each of the 50 US states. So we could run the script 180 separate times to extract all the data, but we can easily extend our scripting to automate this process.
@@ -189,41 +191,59 @@ The [master script](https://github.com/mattkerlogue/google-covid-mobility-scrape
 1. A function `get_update_time()` scrapes the webpage for the metadata timestamp when the reports were updated. It will check this against the a timestamp stored in the repository `LASTUPDATE_UTC.txt`, which stores the last value of that metadata for reference purposes. If the timestamps match then the extraction code isn't run.
 1. If the reports have been updated but they have the same reference date the data is still extracted but warning is given to the user and the update timestamp is added to the exported files.
 1. A timestamp and message appended to the log file `processing.log` giving the outcome of the script (no update, existing reports updated, new reports published and extracted)
-1. If the script isn't being run by the user interactively (i.e. from within RStudio or another R GUI) then if data has been extracted then it will use [`{git2r}`](https://docs.ropensci.org/git2r/) to commit the new data the `autoupdate` branch of the repository and push it to GitHub.
 
-These last stages mean that the script can be run automatically as a scheduled process, and if new data is extracted it will be automatically saved not just locally but also in the GitHub remote repository. I have set up notifications so that when a push is made to the repository I'll be notified about it.
 
-I've scheduled the script to run on my machine once an hour using [`cron`](https://en.wikipedia.org/wiki/Cron) (a task scheduling utility for UNIX systems[^2]).
+## Using GitHub Actions to schedule the process
+[GitHub Actions](https://github.com/features/actions) is an automation facility built into GitHub, largely designed to provide continuous integration/deployment and testing for software packages. It is largely intended to be run when a commit is pushed to a repository (e.g. to build documentation, or test that new functionality works on multiple platforms). However, it can also be used to run scheduled jobs by making use of `cron` as an event trigger.
 
-```sh
-crontab -e
-...
-20 * * * * * cd ~ && ./google_trends_autoscript.sh
+The base environments offered by GitHub do not include R, however the R community is rapidly developing mechanism to use GitHub Actions for R-based projects. It is already very easy to add R to a workflow through the [r-lib/actions](https://github.com/r-lib/actions) repository, and the [`{usethis}`](https://www.tidyverse.org/blog/2020/04/usethis-1-6-0/) package has also been updated to provide easy to use functions for setting up GitHub Actions from within R. Based on GitHub's [own documentation](https://help.github.com/en/actions) and this [ROpenSci playbook](https://ropenscilabs.github.io/actions_sandbox/), I've developed a [GitHub action workflow](https://github.com/mattkerlogue/google-covid-mobility-scrape/blob/master/.github/workflows/main.yaml) to run the `get_all_data.R` script on an hourly basis.
+
+```yaml
+# Hourly scraping
+name: googleC19scrape
+
+# Controls when the action will run.
+on:
+  schedule:
+    - cron: '0 * * * *'
+
+jobs:
+  autoscrape:
+    # The type of runner that the job will run on
+    runs-on: macos-latest
+
+    # Load repo and install R
+    steps:
+    - uses: actions/checkout@master
+    - uses: r-lib/actions/setup-r@master
+
+    # Set-up R
+    - name: Install packages
+      run: |
+        R -e 'install.packages("tidyverse")'
+        R -e 'install.packages("pdftools")'
+        R -e 'install.packages("countrycode")'
+    # Run R script
+    - name: Scrape
+      run: Rscript get_all_data.R
+
+    # Add new files in data folder, commit along with other modified files, push
+    - name: Commit files
+      run: |
+        git config --local user.name github-actions
+        git config --local user.email "actions@github.com"
+        git add data/*
+        git commit -am "GH ACTION Autorun $(date)"
+        git push origin master
+      env:
+        REPO_KEY: ${{secrets.GITHUB_TOKEN}}
+        username: github-actions
 ```
 
-Using `crontab -e` allows you to edit your `crontab` which sets out the tasks you want your system to do on a regular basis, the line I've added tells the system at the 20th minute of the every hour (when the system is awake) to navigate to my home directory and then run a shell script called `google_trends_autoscript.sh`.
+Firstly we define when the workflow runs, there are a large number of events that can trigger a workflow (e.g. when a push is made to a repository or a pull request intiated, a release is published), but we can also define a regular [schedule](https://help.github.com/en/actions/reference/events-that-trigger-workflows#scheduled-events-schedule) using `cron` syntax. Next we define the environment we  will run our script on (in this case `macos-latest`, there are also Ubuntu and Windows options available, and an action can also run in multiple environments). It then works through a series of steps, firstly loading the repository and installing R, install the necessary packages from CRAN and then running the actual R script for checking and extracting data. After the script is run we then commit any new files in the data folder and commit those along with any other files that have been modified (i.e. log files) and push these to the repository.
 
-```sh
-#!/bin/zsh
-cd ~/r/google-covid-mobility-scrape
-Rscript get_all_data.R
-git checkout autoupdate
+And now on an hourly basis the code will run and update the repository with new data.
 
-LOG_MSG=$(tail -n 1 ~/r/google-covid-mobility-scrape/processing.log)
-
-if [[ "$LOG_MSG" =~ "No update" ]]
-then
-    echo $LOG_MSG
-else
-    osascript -e "display notification \"$(tail -n 1 ~/r/google-covid-mobility-scrape/processing.log)\" with title \"Google COVID19 scraper\""
-fi
-
-git checkout master
-```
-
-The `google_trends_autoscript.sh` file navigates to the `google-covid-mobility-scrape` it then uses the `Rscript` command to run the `get_all_data.R` script in its own (non-interactive) instance of R. The script will then switch to the autoupdate branch and extract the last line of the `processing.log` file. As I work on a Mac, it then uses `osascript` to display a desktop notification if the last message in the log is not "No update", so that in addition to an email caused by the github push, I'll get a desktop notification.
-
-At present this just runs hourly on my machine, ideally I'd like to put it in the cloud so that it's "always on" as it's not clear how often or when Google will update their reports.
 
 [^1]: `{countrycode}` is a rather fantastic package which will certainly be the subject of a future blog.
 [^2]: Insert witty _Jurassic Park_ joke here.
