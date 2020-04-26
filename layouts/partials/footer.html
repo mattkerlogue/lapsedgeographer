@@ -2,10 +2,10 @@
   <div class="footer__inner">
     {{ if $.Site.Copyright }}
       <div class="copyright copyright--user">
-        <span>© {{ $.Site.Copyright | safeHTML }}</span>
+        <span>{{ $.Site.Copyright | safeHTML }}</span>
     {{else}}
       <div class="copyright">
-        <span>© {{ now.Year }}</a></span>
+        <span><a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">CC-BY-SA 4.0</a></span>
     {{end}}
         <span>:: Powered by <a href="http://gohugo.io">Hugo</a> using <a href="http://gohugo.io/theme/hugo-theme-terminal/">Terminal theme</a> made by panr</span>
       </div>

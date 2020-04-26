@@ -21,7 +21,6 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
     title = "The Lapsed Geographer"
     subtitle = ""
     keywords = ""
-    copyright = "2020 Matt Kerlogue"
     menuMore = "Show more"
     readMore = "Read more"
     readOtherPosts = "Read other posts"
