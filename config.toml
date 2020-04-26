@@ -1,5 +1,5 @@
 baseURL = "https://lapsedgeographer.london/"
-languageCode = "en-us"
+languageCode = "en-gb"
 theme = "hugo-theme-terminal"
 paginate = 10
 googleAnalytics = "UA-163162822-1"
