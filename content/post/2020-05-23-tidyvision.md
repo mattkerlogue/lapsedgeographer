@@ -10,7 +10,6 @@ tags:
   - tidymodels
   - eurovision
   - regression
-draft: true
 ---
 
 Last Saturday, Saturday 16th May 2020 was scheduled to be the 65th Eurovision Song Contest, but due to the ongoing COVID19 pandemic the contest was cancelled. Eurovision is very special to me, and I've been lucky to attend a couple of the finals and semi-finals – and, if you were watching the second semi-final of the 2015 contest you may have even seen me on TV! I've recently watched some of [Julia Silge's TidyTuesday webcasts](https://juliasilge.com/blog/) using the [`{tidymodels}` framework](http://tidymodels.org), and so instead of watching the EBU's tribute show and getting rather sad about the contest not happening and Daði Freyr not winning and giving me an even better excuse to go back to Iceland[^1] I decided to play with `{tidymodels}` and the [Datagraver's Eurovision points dataset](http://kaggle.com/datagraver/eurovision-song-contest-scores-19752019) on Kaggle.
