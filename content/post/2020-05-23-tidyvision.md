@@ -56,7 +56,7 @@ The dataset has eight columns:
 | 2014|sf2           |2014sf2 |J                  |Romania              |Georgia    |      0|NA        |
 ```
 
-This is a fairly tidy dataset to start with, but what's the fun of leaving things as they are, it'd certainly be easier with tidy column names, at least. We can get of those duplicate rows, there's also a typo in some of the rows where The Netherlands is missing the 'l'. Due to increasing participation from Eastern European countries, a semi-final was introduced in 2004 but this was quickly replaced by two semi-finals that select all but six of the finalists (the host country and the five largest funders of the European Broadcasting Union: France, Germany, Italy, Spain and the United Kingdom). This is recorded in the second and third columns, but let's add a generic flag for whether it's a final or semi-final.
+This is a fairly tidy dataset to start with, but what's the fun of leaving things as they are, it'd certainly be easier with tidy column names, at least. We can get rid of those duplicate rows, there's also a typo in some of the rows where The Netherlands is missing the 'l'. Due to increasing participation from Eastern European countries, a semi-final was introduced in 2004 but this was quickly replaced by two semi-finals that select all but six of the finalists (the host country and the five largest funders of the European Broadcasting Union: France, Germany, Italy, Spain and the United Kingdom). This is recorded in the second and third columns, but let's add a generic flag for whether it's a final or semi-final.
 
 ``` r
 eurovision_proc <- eurovision_raw %>%
@@ -403,7 +403,35 @@ Now that we've calculated these additional metrics, let's now think about modell
 
 We can also convert our points to/from neighbours into relative scores. Let's call the proportion of a country's points from its neighbours its `friendly` score (i.e. the more friendly you are the more of your points will come from your neighbours). Let's calculate the proportion of the points given by a country to its neighbours, and call this `neighbourly` (i.e. as a good neighbour you will give more of your points to your neighbours). For each of these measures let's calculate a 'dispersion' factor, that is your `friendly`/`neighbourly` scores divided by the number of neighbours. Finally let's calculate a `kinship` measure which combines both the points given and received, which we will calculate as the square root of the product of the points to and from neighbours and then divided by the number of neighbours.
 
-Let's then define a hypothetical model that a country's relative score and/or its likelihood of winning is proportionate to its friendliness, neighbourliness, the dispersion of these two metrics, its kinship and its number of previous wins since 1975.
+```r
+eurovision_final_scores <- eurovision_scores %>%
+  filter(show_type == "final") %>%
+  left_join(num_neighbours) %>%
+  left_join(semi_results) %>%
+  left_join(points_from_neighbours) %>%
+  left_join(points_to_neighbours) %>%
+  left_join(points_given) %>%
+  select(year, country, score, winning_score, show_winner, 
+         semi_winner = semi_outcome, prev_wins, num_of_neighbours, 
+         points_from_neighbours, points_to_neighbours, points_given) %>%
+  mutate(
+    show_winner = as_factor(if_else(show_winner, "winner", "participant")),
+    semi_winner = case_when(
+      year >= 2004 & is.na(semi_winner) ~ FALSE, 
+      TRUE ~ semi_winner),
+    relative_score = score/winning_score,
+    friendly = points_from_neighbours/score,
+    friendly_dispersion = friendly/num_of_neighbours,
+    neighbourly = points_to_neighbours/points_given,
+    neighbourly_dispersion = neighbourly/num_of_neighbours,
+    kinship = sqrt(points_from_neighbours * points_to_neighbours) / 
+      num_of_neighbours
+  ) %>%
+  mutate_if(is.numeric, replace_na, 0) %>%
+  mutate_if(is.numeric, ~if_else(is.infinite(.), 0, .))
+```
+
+Let's now define a hypothetical model that a country's relative score and/or its likelihood of winning is proportionate to its friendliness, neighbourliness, the dispersion of these two metrics, its kinship and its number of previous wins since 1975.
 
 > ` outcome [relative_score | show_winner] ~ friendly + friendly_dispersion + neighbourly + neighbourly_dispersion + kinship + prev_wins`
 
