@@ -10,7 +10,6 @@ tags:
   - gganimate
   - geom_sf
   - eurovision
-draft: true
 ---
 
 My last post explored using the [`{tidymodels}` package with data about the Eurovision Song Contest]({{< relref "2020-05-23-tidyvision.md">}})[^1]. One of the best things to do when exploring a dataset is to visualise it, so let's also use this dataset to learn about the [`{gganimate}` package](https://gganimate.com) that provides ways to create animated charts.
