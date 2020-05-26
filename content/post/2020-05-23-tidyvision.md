@@ -1,7 +1,7 @@
 ---
 title: "The Tidyvision Song Contest"
 author: Matt
-cover: img/me_at_eurovision2015.jpg
+cover: img/2020-05-23-me_at_eurovision2015.jpg
 date: "2020-05-23"
 slug: tidyvision
 tags:
