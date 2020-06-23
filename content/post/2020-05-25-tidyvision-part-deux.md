@@ -119,7 +119,7 @@ options(gganimate.dev_args = list(width = 750, height = 610))
 anim_save("eurovision_timeseries", anim_map, fps = 5)
 ```
 
-{{< figure src="/img/2020-05-25-eurovision_2019_scores.png" caption="Animated map of scores in the Eurovision finals 1975-2019">}}
+{{< figure src="/img/2020-05-25-eurovision_timeseries.gif" caption="Animated map of scores in the Eurovision finals 1975-2019">}}
 
 I'm pleasantly surprised by just how easy it is to get started with `{gganimate}`. If I was going to improve this further I'd crop Russia east of the Urals and perhaps relocate Australia a little closer so that we can zoom in on Europe and see the variation in European countries a bit better, but that's for another day (should I ever get round to it).
 
