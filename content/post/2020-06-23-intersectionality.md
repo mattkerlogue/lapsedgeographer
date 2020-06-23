@@ -6,7 +6,6 @@ slug: intersectionality
 cover: img/2020-06-23_progress-pride.png
 tags:
   - personal
-draft: true
 ---
 
 On 25th May 2020 George Floyd was killed by police in Minneapolis. His death has sparked protests not just in the USA but around the world. Like many Civil Service organisations, our departmental race champion posted a blog about the Black Lives Matter movement at the start of June. This coincided with a short [twitter thread](https://twitter.com/mattkerlogue/status/1270359684625678336) I posted about these latest Black Lives Matters protests rising at the intersection of the start of what is increasingly seen as LGBT+ Pride Month[^1] in the US (and to some degree here in the UK too).
