@@ -48,7 +48,7 @@ ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
 [markup]
   [markup.tableOfContents]
-    endLevel = 2
+    endLevel = 3
     ordered = false
     startLevel = 2
 
