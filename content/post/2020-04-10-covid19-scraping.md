@@ -122,7 +122,7 @@ subnational_data <- map_dfr(subnational_pages, bind_rows, .id = "page")
 
 So far, so similar; but now it gets more complex. The cover image for this post is the set of charts for Greater London from the 5th April 2020 report, can you guess what the complexities are?
 
-{{< figure src="/img/2020-04-05_Greater-London_GoogleCMR.png" >}}
+{{< figure src="/img/2020-04-05_Greater-London_GoogleCMR.png" alt="Screenshot of the Google Mobility Report PDF" >}}
 
 Well, the complexities are:
 

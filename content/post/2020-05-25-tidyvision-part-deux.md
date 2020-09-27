@@ -42,7 +42,7 @@ p_line <- ggplot(gb_scores, aes(x = year, y = score, colour = country)) +
   )
 ```
 
-{{< figure src="/img/2020-05-25-eurovision_uk_winner.png" caption="UK and winning country's scores in the Eurovision final 1975-2019">}}
+{{< figure src="/img/2020-05-25-eurovision_uk_winner.png" caption="UK and winning country's scores in the Eurovision final 1975-2019" alt="Chart showing the final score for the UK's entry and the score for the winning act in the Eurovision Song Contest finals 1975 to 2019" >}}
 
 `{gganimate}` provides a similar syntax to `{ggplot2}` that allows us to easily animate our charts. We can use the `transition_reveal` function to progressively build an animation where the line element persists across the animations. All we need to do is provide a single argument to this function that is the the name of the column in the data that we wish to use as the feature that animates the data, the `year`. Through my tests I've found it common sense to specify the pixel size of the animation you want before you save it, which you do by setting `gganimate.dev_args` in a call to `options()`.
 
@@ -56,7 +56,7 @@ options(gganimate.dev_args = list(width = 900, height = 900*9/16))
 anim_save("eurovision_uk_winner.gif", anim_line, fps = 5)
 ```
 
-{{< figure src="/img/2020-05-25-eurovision_uk_winner.gif" caption="UK and winning country's scores in the Eurovision final 1975-2019 (animated)">}}
+{{< figure src="/img/2020-05-25-eurovision_uk_winner.gif" caption="UK and winning country's scores in the Eurovision final 1975-2019 (animated)" alt="Animated GIF of the chart of the UK's and winning entry's scores from 1975 to 2019" >}}
 
 Animations can also be applied to maps, allowing us to visualise Eurovision scores over time. First let's get country outlines via the [`{rnaturalearth}`](https://docs.ropensci.org/rnaturalearth) package. We'll also subset these to clip out everything west of Iceland and everything east of Australia. Then we can merge in our `eurovision_scores` data. As we saw from the previous chart in recent years the winner's score has massively increased, so let's again calculate the relative score for each country.
 
@@ -88,7 +88,7 @@ p_map1 <- ggplot(eurovision_countries %>% filter(year == 2019)) +
   )
 ```
 
-{{< figure src="/img/2020-05-25-eurovision_2019_scores.png" caption="Map of Eurovision 2019 final scores">}}
+{{< figure src="/img/2020-05-25-eurovision_2019_scores.png" caption="Map of Eurovision 2019 final scores" alt="Map of countries participating in the 2019 Eurovision Song Contest Grade Final coloured according to their score" >}}
 
 Animating this is again relatively simple, however you need to make sure you have installed the [`{transformr}`](https://cran.r-project.org/package=transformr) package which is needed for animating `ggplot2::geom_sf()` objects. This time we'll use the `transition_state()` animation function, again it requires a single argument (in our case `year`). However, let's revise our plot object first, removing the filtering of the data to just the 2019 scores, and adding in a [{glue}](https://glue.tidyverse.org) style call to transition information in the title text so that we can reference the year in the title of the chart/
 
@@ -119,7 +119,7 @@ options(gganimate.dev_args = list(width = 750, height = 610))
 anim_save("eurovision_timeseries", anim_map, fps = 5)
 ```
 
-{{< figure src="/img/2020-05-25-eurovision_timeseries.gif" caption="Animated map of scores in the Eurovision finals 1975-2019">}}
+{{< figure src="/img/2020-05-25-eurovision_timeseries.gif" caption="Animated map of scores in the Eurovision finals 1975-2019" alt="Animated GIF showing a map of countries participating in the Eurovision Song Contest Grand Final over time, from 1975 to 2019, with countries coloured according to their score for that year" >}}
 
 I'm pleasantly surprised by just how easy it is to get started with `{gganimate}`. If I was going to improve this further I'd crop Russia east of the Urals and perhaps relocate Australia a little closer so that we can zoom in on Europe and see the variation in European countries a bit better, but that's for another day (should I ever get round to it).
 
