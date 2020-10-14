@@ -4,4 +4,6 @@
 .Ruserdata
 .vscode
 
+*.DS_store
+
 public*
