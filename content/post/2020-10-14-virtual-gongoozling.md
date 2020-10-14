@@ -4,7 +4,6 @@ author: Matt
 date: "2020-10-14"
 cover: "img/2020-10-14-rosie-jim.gif"
 slug: virtual-gongoozling
-draft: true
 tags:
   - r
   - flickr
@@ -274,7 +273,7 @@ flickr_get_photo_info <- function(key = NULL, photo_id, photo_secret) {
 }
 ```
 
-As with the `flickr_get_photos_list()` function, we'll check for an API key and that the other arguments aren't missing. Our API call this time is much smaller, needing just the `api_key`, `photo_id` and `secret` to get a dataset returned to us. We don't need all the data provided, so let's build a small tibble of the data we might need: details about the photographer, the licence, the caption/description, the data, and whether the photo can be downloaded/shared.
+As with the `flickr_get_photo_list()` function, we'll check for an API key and that the other arguments aren't missing. Our API call this time is much smaller, needing just the `api_key`, `photo_id` and `secret` to get a dataset returned to us. We don't need all the data provided, so let's build a small tibble of the data we might need: details about the photographer, the licence, the caption/description, the data, and whether the photo can be downloaded/shared.
 
 ### Scoring photos
 `flickr_photos_list()` returns either a `NULL` value or a tibble of up to 100 photos selected from Flickr. How should we select a photo? We could just take the first item in the list, which according to the Flickr API documentation is the closest to the feature. But as I discovered during my testing, sometimes this isn't a particularly interesting photo or one related to the canal network. When testing, one location I had randomly selected was a site in central Birmingham that happened to be close to some of the HS2 construction work, and so the closest photo to the position selected was actually of this. There might also be issues with Flickr users correctly geo-positioning their photos, many modern cameras automatically embed this information, but you can manually place your photos on a map within the Flickr UI.
@@ -316,7 +315,7 @@ flickr_photo_score <- function(df) {
 }
 ```
 
-Our scoring function takes the tibble produced at the end of `flickr_get_photos_list()` and makes some calculations based off the metadata, which will then power the scoring. So what shall we use in our scoring?
+Our scoring function takes the tibble produced at the end of `flickr_get_photo_list()` and makes some calculations based off the metadata, which will then power the scoring. So what shall we use in our scoring?
 
 #### Words
 There are two fields that Flickr users can use to describe their photos: the `title` and the `description`. Let's do some analysis of these to get some metrics about the words used to describe the photo. Longer titles probably mean someone has taken time to label their work rather than use the filename, so we get a word count of the title in `title_words`. A longer descriptions is probably also an indicator that someone has taken the time to write about their photo, as it turns out some people write a lot and we perhaps don't want to reward the overly verbose so actually let's get the `log10()` of the number of words in the description, this is stored as `desc_words2` (`desc_words` being the simple word count). Let's then sum `total_words` and `desc_words2` to get an overall `word_score`.
@@ -347,7 +346,7 @@ canal_word_count <- function(string) {
 In our selection algorithm we count the number of canal-related words used in the title and description, and sum these. Then to give it even more power let's square the result to come up with our `canal_words_score`.
 
 #### Time and date
-In `flickr_get_photos_list()` we get a `TRUE/FALSE` marker for whether the photo was taken during golden hour, R's will naturally interpret `TRUE` as 1 and `FALSE` as 0, we don't want any photo outside of golden hour to get a 0, so let's set `gold` as 2 for `TRUE` and 1 for `FALSE`.
+In `flickr_get_photo_list()` we get a `TRUE/FALSE` marker for whether the photo was taken during golden hour, R's will naturally interpret `TRUE` as 1 and `FALSE` as 0, we don't want any photo outside of golden hour to get a 0, so let's set `gold` as 2 for `TRUE` and 1 for `FALSE`.
 
 Let's also calculate recency, we can do this by subtracting the date-time of the photo from the current time provided by `Sys.time()`, which we'll call offset. Let's prefer 'recent' photos and drop any photos that are older than 5,000 days which gives us photos from around 2008 onwards (though maybe I'll remove this condition in future). The code still includes lines from experiments with reversing the offset, but the algorithm uses a rescaled version of the offset where the smallest offset is given a value of 5 and the largest offset is given a value of 1.
 
@@ -358,7 +357,7 @@ The Flickr API doesn't give us the actual distance, but the documentation claims
 Finally, we can now calculate a score, let's just calculate this as a product of our different components: `final_score = word_score * dist_rev * gold * alt_off * canal_word_score`. We can then return a dataset of the scores.
 
 ### Picking a photo
-Picking a photo is done by the `flickr_pick_photo()` function. This function calls the scoring function we just wrote, so it also takes as it's argument the tibble created by `flickr_get_photos_list()`.
+Picking a photo is done by the `flickr_pick_photo()` function. This function calls the scoring function we just wrote, so it also takes as it's argument the tibble created by `flickr_get_photo_list()`.
 
 ```r
 flickr_pick_photo <- function(df) {
@@ -405,7 +404,179 @@ if (!is.null(lat) & !is.null(long)) {
 
 Here we're adding (if they're provided) the latitude and longitude as parameters to the `param` object that will be passed to the `rtweet::make_url()` function that constructs Twitter API calls.
 
-## Crusing the canals
-Now that we've built all of our functionality we can create the `narrowbot.R` script that will cruise the canals, select an object and post a tweet.
+## Cruising the canals
+Now that we've built all of our functionality we can create the `narrowbot.R` script that will cruise the canals, select an object and post a tweet. First let's get set-up
 
+```r
+# load functions
+library(dplyr)
+source("R/post_geo_tweet.R")
+source("R/flickr_functions.R")
 
+message("Stage: functions loaded")
+
+# create twitter token
+narrowbotr_token <- rtweet::create_token(
+  app = "narrowbotr",
+  consumer_key =    Sys.getenv("TWITTER_CONSUMER_API_KEY"),
+  consumer_secret = Sys.getenv("TWITTER_CONSUMER_API_SECRET"),
+  access_token =    Sys.getenv("TWITTER_ACCESS_TOKEN"),
+  access_secret =   Sys.getenv("TWITTER_ACCESS_TOKEN_SECRET")
+)
+
+message("Stage: Twitter token created")
+```
+
+Let's load `{dplyr}` so that we can use the pipe (`%>%`) and then source our custom functions. We also need to create a token for working with Twitter, which we can do through `rtweet::create_token()` and our Twitter Developer API keys/tokens. We're also providing `message()` calls periodically so that when it runs in Github Actions the script is "chatty" and provides some messages that we can see in the Action's log file so that we can more easily diagnose issues/review what has happened.
+
+Let's then get the points dataset, the `geometry` column is includes data in a format controlled by `{sf}`, we don't need to install or load `{sf}` for the bot, so in order to easily interact with the dataset let's drop this column. Culverts are generally pipes/passages that direct watercourses under something and often hidden from public view so let's filter these out of the dataset. Finally let's pick one item at random and then convert the tibble to a list.
+
+In our message at this point, let's announce the place that was selected - this can be particularly helpful for diagnosing problems.
+
+```r
+# load points data
+all_points <- readRDS("data/all_points.RDS")
+
+# pick a point
+place <- all_points %>%
+  dplyr::select(-geometry) %>%
+  dplyr::filter(stringr::str_detect(feature, "culvert", negate = TRUE)) %>%
+  dplyr::sample_n(1) %>%
+  as.list()
+
+message("Stage: Picked a place [", place$name,
+        ", lat: ", place$lat,
+        ", long: ", place$long, "]")
+```
+
+Now we've selected a place let's see if we can get a Flickr photo for it.
+
+```r
+place_photos <- flickr_get_photo_list(lat = place$lat, long = place$long)
+
+message("Stage: Got photos")
+
+if (is.null(place_photos)) {
+  photo_select <- NULL
+  message("Stage: No photo selected\n")
+} else {
+  photo_select <- flickr_pick_photo(place_photos)
+  message("Stage: Photo selected\n")
+}
+```
+
+We get the photos through a call to our trusty `flickr_get_photo_list()` function, if we get a `NULL` response then let's also record our `photo_select` object as NULL. If we have got a list of photos let's pick a photo. Now we've selected a photo we can download it, but what if we don't have a Flickr photo? Let's revert to the example of `londonmapbot` an use an aerial photo from Mapbox.
+
+```r
+tmp_file <- tempfile()
+
+if (is.null(photo_select)) {
+  img_url <- paste0(
+    "https://api.mapbox.com/styles/v1/mapbox/satellite-v9/static/",
+    paste0(place$long, ",", place$lat, ",", 16),
+    "/600x400?access_token=",
+    Sys.getenv("MAPBOX_PAT")
+  )
+} else {
+  img_url <- photo_select$img_url
+}
+
+download.file(img_url, tmp_file)
+
+message("Stage: Photo downloaded")
+```
+
+We're not going to need to store our downloads after we've posted it so let's put it in a temporary file by calling `tempfile()`. If our `photo_select` is `NULL` we construct a simple call to the Mapbox API for satellite imagery, and we'll zoom in a bit closer than `londonmapbot` as canal features might be difficult to ascertain unless we're zoomed in at a good distance. If `photo_select` isn't `NULL` remember that in picking a photo we added two URLs to the photo's list object, let's grab the URL for the image. Now that we have a URL for an image from either Mpabox or Flickr we can download the image.
+
+We've now got all the pieces we need to construct a tweet.
+
+```r
+base_message <- c(
+  "📍: ", place$name, "\n",
+  "ℹ️: ", place$obj_type_label, "\n",
+  "🗺: ",  paste0("https://www.openstreetmap.org/",
+                  "?mlat=", place$lat,
+                  "&mlon=", place$long,
+                  "#map=17/", place$lat, "/", place$long)
+)
+
+if (is.null(photo_select)) {
+  tweet_text <- base_message
+} else {
+  tweet_text <- c(
+    base_message, "\n",
+    "📸: Photo by ", stringr::str_squish(photo_select$realname), " on Flickr ",
+    photo_select$photo_url)
+}
+
+status_msg <- paste0(tweet_text, collapse = "")
+
+message("Stage: Tweet written")
+```
+
+Let's start with the first part of our tweet which will always be the same: the name of the place, the type of place, and a link to the location in OpenStreetMap. We'll use emoji to provide a key for these three pieces of information. If we've got a Flickr photo let's also add details about the photo by saying who the photographer is and providing the URL to the Flickr webpage for the photo.
+
+Our twitter messages so far are R character vectors with multiple items, we need to use `base::paste0()` to merge all of the items into a single character string.
+
+We then post our tweet using `post_geo_tweet()`. And let's also print the tweet for the Github Actions log.
+
+```r
+post_geo_tweet(
+  status = status_msg,
+  media = tmp_file,
+  lat = place$lat,
+  long = place$long
+  )
+
+message("Stage: Action complete")
+
+message("\n====\nTweet:\n")
+
+cat(status_msg)
+
+```
+
+## Cruising all day, moor up at night
+Finally, let's create a Github Action workflow so that our `narrowbot.R` can _"cast off"_ and cruise the canals through the day. Historically the canals operated 24/7, but an important rule of modern canal boating "no cruising after dark", this is to ensure you don't disturb moored boats and most canals and boats do not have good lighting so you may well get yourself into trouble.
+
+In my post on [automating PDF scraping](/2020-04/automating-PDF-scraping) I talked about my first use of Github Actions. I've not done much more since, and the principles are similar. However, since that earlier work if you use Github's MacOS runner then R comes already built, and so there's no longer a need to include installation of R as part of your action workflow.
+
+```yaml
+name: narrowbotR
+
+on:
+  schedule:
+    - cron:  '10,40 7-20 * * *'
+
+jobs:
+  narrowbotR-post:
+    runs-on: macos-latest
+    env:
+      FLICKR_API_KEY: ${{ secrets.FLICKR_API_KEY }}
+      TWITTER_CONSUMER_API_KEY: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
+      TWITTER_CONSUMER_API_SECRET: ${{ secrets.TWITTER_CONSUMER_API_SECRET }}
+      TWITTER_ACCESS_TOKEN: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+      TWITTER_ACCESS_TOKEN_SECRET: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
+      MAPBOX_PAT: ${{ secrets.MAPBOX_PAT }}
+    
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install packages
+        run: Rscript -e 'source("R/pkg_install.R")' -e 'install_runner_packages()'
+      - name: Cruise the canals
+        run: Rscript narrowbot.R
+```
+
+Let's set a `cron` schedule to `10,40 7-20 * * *` which [crontab.guru](https://crontab.guru/#10,40_7-20_*_*_*) tells us is the syntax for running the worklow "at minute 10 and 40 past every hour from 7 through 20". Github Actions scheduler works on UTC all-year round so this means we'll get two tweets an hour between 7am-8pm during the winter and 8am-9pm during the summer, as the workflow will take a couple of minutes to set-up and run, this should mean that tweets are posted at roughly quarter-past and quarter-to the hour.
+
+Having set a schedule, let's use Action Secrets to store and get the various API keys and tokens we need.
+
+Now let's run our R scripts, first off let's install the packages needed to run the script. We do this by sourcing the `pkg_install.R` script and then running the `install_runner_packages()` function. When building the dataset I said that in due course I'll write a function to automate checking and building the database which will require additional packages, notably `{sf}`. Having installed the required packages we can now dispatch our narrowboater and let them find a feature and tweet about it by running the `narrowbot.R` script.
+
+And voila, we have ourselves Twitter bot of the Canal and River Trust network. Why not give it a follow, and get tweets like the following.
+
+A tweet with aerial photography:
+{{< tweet 1316007665592655873 >}}
+
+A tweet with Flickr photography:
+{{< tweet 1316457950215647241 >}}
