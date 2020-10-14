@@ -391,3 +391,21 @@ First, we get the scores for the dataset using `flickr_photo_score()`, let's the
 As we're only selecting one item, let's convert this to a list to make it a little bit easier to work with, which we can easily do with `base::as.list()`. Let's then append to this list two URLs from Flickr which can be built from the data we already have in our list: (i) the URL of the Flickr webpage for the photo, and (ii) the URL of the actual image file so that we can download the photo.
 
 And voila, if we're lucky we've now got the information we need to get an image from Flickr for our tweet.
+
+## Posting a geo-tweet
+`londonmapbot` makes use of the {rtweet} package's `post_tweet()` function. This provides an easy way to post tweets from within R via the Twitter developer API, including media objects (e.g. images).
+
+The Twitter API allows you to also embed location details in your tweet, which Twitter will then use this to connect the tweet to the nearest locality. `rtweet::post_tweet()` does not support this functionality. So `narrowbotR` extends this by creating a `post_geo_tweet()` function. Most of the code for `post_geo_tweet()` is taken directly from the source code for `rtweet::post_tweet()`. In fact there are only three lines that have been added.
+
+```r
+if (!is.null(lat) & !is.null(long)) {
+    params <- append(params, list(lat = lat, long = long, display_coordinates = TRUE))
+  }
+```
+
+Here we're adding (if they're provided) the latitude and longitude as parameters to the `param` object that will be passed to the `rtweet::make_url()` function that constructs Twitter API calls.
+
+## Crusing the canals
+Now that we've built all of our functionality we can create the `narrowbot.R` script that will cruise the canals, select an object and post a tweet.
+
+
