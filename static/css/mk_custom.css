@@ -138,3 +138,13 @@ section.footnotes {
 section.footnotes  code {
   font-size: 1em !important;
 }
+
+.post-content h4 {
+  font-weight: normal;
+  color: var(--accent);
+  margin-bottom: 10px;
+}
+
+.post-content h4 ~ p {
+  margin-top: 10px;
+}
