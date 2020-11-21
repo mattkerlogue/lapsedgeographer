@@ -52,6 +52,8 @@ R is ready> options("prompt" = "> ")
 
 For a long time my custom prompt simply told me the time, which given how long some code can run can be a useful way of tracking how long a chunk of code/script takes without resorting to littering your code with `start <- Sys.time()` and `Sys.time() - start` to get the elapsed time down to the millisecond. Usually I just want to know when I executed the command so if it's still running I know how long it's been going. Adding the time to the R prompt seemed a pretty nifty approach. In time I then realised that it'd also be useful to know what directory I'm working in. I've then since gone on to amend the directory to show the path from my starting point (if I'm in an RStudio project) so I know if I'm in a sub-directory or not. My most recent adaptation has been to include information about git: which branch I'm in, whether there are files that have been modified since the last commit, and whether I'm ahead of the remote origin.
 
+The rest of this post shows you how I've gone about customising my prompt, but I'll also mention that there's a [`{prompt}`](https://github.com/gaborcsardi/prompt) package developed by Gábor Csárdi that does this and more without the need for you to get into the weeds of how R's prompt works and how you can modify it.
+
 ### Adding the time
 
 Adding the time might seem simple, let's just add Sys.time() to the prompt option.
