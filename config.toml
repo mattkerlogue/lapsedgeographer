@@ -2,7 +2,6 @@ baseURL = "https://lapsedgeographer.london/"
 languageCode = "en-gb"
 theme = "terminal"
 paginate = 10
-googleAnalytics = "UA-163162822-1"
 ignoreFiles = ["\\.Rmd$", "\\.Rmarkdown$", "_files$", "_cache$"]
 
 [permalinks]
