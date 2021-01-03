@@ -29,7 +29,16 @@
   {{ end }}
 
   {{ with .Params.Cover }}
-  <img src="{{ . | absURL }}" class="post-cover" />
+  <div class = "post-cover">
+    <img src="{{ . | absURL }}" />
+  {{ end }}
+
+  {{ with .Params.caption }}
+      <div class="cover-caption">{{ . | safeHTML }}</div>
+  {{ end }}
+  
+  {{ with .Params.Cover }}
+  </div>
   {{ end }}
 
   <div class="post-content">
