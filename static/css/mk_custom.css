@@ -81,12 +81,21 @@ aside ul {
   margin-top: 0px !important;
 }
 
-figure img {
+figure img, .map-content {
   padding: 10px;
   border: 2px solid var(--accent);
 }
 
 figure figcaption {
+  text-align: left !important;
+}
+
+.map-caption {
+  font-size: 14px;
+  padding: 5px 10px;
+  margin-top: 5px;
+  background: var(--accent);
+  color: var(--background);
   text-align: left !important;
 }
 
