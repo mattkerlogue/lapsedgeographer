@@ -172,3 +172,12 @@ section.footnotes  code {
 .post-content h4 ~ p {
   margin-top: 10px;
 }
+
+section.footnotes figure, section.footnotes div.video-player {
+  margin-bottom: 5px !important;
+  margin-top: 5px !important;
+}
+
+section.footnotes img, section.footnotes div.video-player {
+  border-width: 1px !important;
+}
