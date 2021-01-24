@@ -3,7 +3,7 @@ title: "# The intersectionality of Black Lives Matter, pride and being a civil s
 author: Matt
 date: "2020-06-23"
 slug: intersectionality
-cover: img/2020-06-23_progress-pride.png
+cover: img/post/2020-06-23_progress-pride.png
 tags:
   - personal
 ---

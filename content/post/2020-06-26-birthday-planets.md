@@ -2,7 +2,7 @@
 title: "The interplanetary birthday express"
 author: Matt
 date: "2020-06-26"
-cover: img/2020-06-26-futurama-birthday.jpg
+cover: img/post/2020-06-26-futurama-birthday.jpg
 slug: birthday-planets
 tags:
   - r
@@ -177,7 +177,7 @@ That takes care of plotting our elements, next let's style our plot. We can use 
 
 And done, we've got a lovely planetary plot, which we return as an object to the user.
 
-{{< figure src="/img/2020-06-26-my_birthday_planets.png" caption="My planetary ages" alt="Chart showing the planets of the solar system with my 'age' on each planet." >}}
+{{< figure src="/img/post/2020-06-26-my_birthday_planets.png" caption="My planetary ages" alt="Chart showing the planets of the solar system with my 'age' on each planet." >}}
 
 ### The sensor array (getting your next interplanetary birthday)
 Our final helper is a function to extract the details of your next interplanetary birthday.
@@ -318,7 +318,7 @@ Finally, one strange thing I discovered was that while it was fine on my machine
 
 So there we have it, the Interplanetary Cake Union now has a handy app to help remind you to order more cake from their Interplanetary Birthday Express Service[^7].
 
-{{< figure src="/img/2020-06-26-burns-alien.gif" alt="GIF of Mr Burns from the Simpsons being mistaken as an alien" >}}
+{{< figure src="/img/post/2020-06-26-burns-alien.gif" alt="GIF of Mr Burns from the Simpsons being mistaken as an alien" >}}
 
 
 [^1]: The Interplanetary Cake Union provides no guarantee that any cake will be the size of a galaxy. Your spaceship may be at risk if you do not keep up repayments. Terms & conditions apply.

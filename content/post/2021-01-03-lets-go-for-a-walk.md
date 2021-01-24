@@ -2,7 +2,7 @@
 title: "Let's go for a walk"
 date: 2021-01-03
 slug: lets-go-for-a-walk
-cover: "img/2021-01-03-holkham_beach.jpg"
+cover: "img/post/2021-01-03-holkham_beach.jpg"
 caption: "The beach at Holkham in Norfolk"
 tags:
   - r
@@ -68,7 +68,7 @@ First 10 features:
 5  Coastline         6        5 LINESTRING (-80.75935 -33.7...
 ```
 
-{{< figure src="/img/2021-01-03-world_coastline.png" caption="world_coastline" alt="Plot of the world_coastline object" >}}
+{{< figure src="/img/post/2021-01-03-world_coastline.png" caption="world_coastline" alt="Plot of the world_coastline object" >}}
 
 ## Visit Britain
 
@@ -81,7 +81,7 @@ ggplot() +
     ylim(49.7,60.85)
 ```
 
-{{< figure src="/img/2021-01-03-world_gb_zoom.png" caption="world_coastline zoomed in on Great Britain" alt="Plot of the world_coastline object zoomed in to Great Britain" >}}
+{{< figure src="/img/post/2021-01-03-world_gb_zoom.png" caption="world_coastline zoomed in on Great Britain" alt="Plot of the world_coastline object zoomed in to Great Britain" >}}
 
 So we can zoom in on the coastline, great, but at the moment it's still part of the `world_coastline` object, and if we look back at the summary of that object besides the geometry column that contains the spatial data there's no defining information that can help us pick out Great Britain from the other objects.
 
@@ -104,7 +104,7 @@ ggplot() +
 
 ```
 
-{{< figure src="/img/2021-01-03-gb_ref_point.png" caption="London's kilometre zero" alt="Plot of the world_coastline object zoomed in to Great Britain with London's kilometre zero reference point" >}}
+{{< figure src="/img/post/2021-01-03-gb_ref_point.png" caption="London's kilometre zero" alt="Plot of the world_coastline object zoomed in to Great Britain with London's kilometre zero reference point" >}}
 
 #### Finding Londo[^8]
 We can now use another handy `{sf}` function to find the shape in `world_coastline` that our Great Britain reference point sits within. However, first we need to convert our coastline into shapes. "Hang on" I hear you cry, isn't it already a set of shapes? To our eyes yes; but to R it's not, it's a set of lines, or what `{sf}` calls a `LINESTRING` which is a set of points that form a line. The first and last point in each shape's linestring that we see is the same set of coordinates. So at present each shape is just a line that while ending in the same place isn't actually defined as an enclosed shape, or in vector terminology a polygon. But thankfully `{sf}` will easily allow us to convert these linestrings to polygons. From there we can then use another `{sf}` function to find which polygon contains our reference point. With a bit of trial and error I found that I could use `sf::st_within()` to do this matching and then use that as a way to subset my original `world_coastline` object to get a `gb_coastline`.
@@ -120,7 +120,7 @@ ggplot() +
     ylim(49.7,60.85)
 ```
 
-{{< figure src="/img/2021-01-03-gb_coastline.png" caption="gb_coastline" alt="Plot of gb_coastline object" >}}
+{{< figure src="/img/post/2021-01-03-gb_coastline.png" caption="gb_coastline" alt="Plot of gb_coastline object" >}}
 
 And lo, we've now got an object representing the coastline of Great Britain.
 
@@ -151,7 +151,7 @@ Classes ‘sf’ and 'data.frame':	3707 obs. of  4 variables:
   ..- attr(*, "names")= chr [1:3] "featurecla" "scalerank" "min_zoom"
 ```
 
-{{< figure src="/img/2021-01-03-gb_coast_points.png" caption="gb_coast_points" alt="Plot of the points use to create the coastline of Great Britain" >}}
+{{< figure src="/img/post/2021-01-03-gb_coast_points.png" caption="gb_coast_points" alt="Plot of the points use to create the coastline of Great Britain" >}}
 
 Let's use our `gb_coast_points` object to take a couple of initial steps.
 
@@ -173,7 +173,7 @@ ggplot() +
     ylim(56.3, 56.5)
 ```
 
-{{< figure src="/img/2021-01-03-first-10-steps.png" caption="The first 10 points in the gb_coast_points object" alt="Plot showing the first 10 points in the gb_coast_points object" >}}
+{{< figure src="/img/post/2021-01-03-first-10-steps.png" caption="The first 10 points in the gb_coast_points object" alt="Plot showing the first 10 points in the gb_coast_points object" >}}
 
 If we look at Open Street Map we can find out where this is in the real world, rather than just a set of points on a plot. It turns out this is a walk from the mouth of the river Tay (by the hamlet of [Inchyra](https://en.wikipedia.org/wiki/Inchyra), southeast of Perth) along its [firth](https://en.wikipedia.org/wiki/Firth_of_Tay) to [Newport-on-Tay](https://en.wikipedia.org/wiki/Newport-on-Tay) opposite Dundee.
 

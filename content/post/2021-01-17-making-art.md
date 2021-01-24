@@ -2,7 +2,7 @@
 title: "Making aRt"
 author: Matt
 date: "2021-01-17"
-cover: "/img/2021-01-12_tate_reasons_art_cover.png"
+cover: "/img/post/2021-01-12_tate_reasons_art_cover.png"
 slug: making-art
 tags:
   - r
@@ -37,7 +37,7 @@ You can see the code to clean the dataset and generate my `reason` column [here]
 
 Having created this column the next step was to generate some data for visualisation. We can see that by far the largest reason for artwork being in Tate collection is the Turner bequest, comprising almost 38,000 individual artworks. The next largest category is "gift", accounting for just over 11,000 artworks; followed by 7,600+ purchases.
 
-{{< figure src="/img/2021-01-16_ggplot-1.png" caption="The Tate collection by reason for acquisition" alt="Plot of the Tate collection by reason for acquisition">}}
+{{< figure src="/img/post/2021-01-16_ggplot-1.png" caption="The Tate collection by reason for acquisition" alt="Plot of the Tate collection by reason for acquisition">}}
 
 The Turner bequest relates largely to Turner's own works, which will be artworks created during his lifetime. What about visualising the reason by year the artwork was created (rather than year of acquisition).
 
@@ -52,7 +52,7 @@ ggplot(why_year, aes(x = reason, y = year, size = n, colour = reason)) +
   geom_point(position = "jitter", alpha = 0.35)
 ```
 
-{{< figure src="/img/2021-01-16_ggplot-2.png" caption="Artwork by reason and year of artwork creation" alt="Plot of the Tate collection by reason for acquisition and year of artwork">}}
+{{< figure src="/img/post/2021-01-16_ggplot-2.png" caption="Artwork by reason and year of artwork creation" alt="Plot of the Tate collection by reason for acquisition and year of artwork">}}
 
 This arrangement has reduced the dominance of the Turner bequest in the visualisation. Each point represents a combination of reason and year with the size of the point corresponding to the number of artworks donated that year for that reason. The Turner bequest is largely limited to Turner's lifetime, while artworks acquired by gift, purchase, death, and the Art Fund stretch over the full range of the collection's timespan. The ARTIST ROOMS works are particularly concentrated in the most recent years as this is a current initiative to acquire works of artists currently practising. Works transferred have two clusters which might be a function of the Tate's establishment as the national collection of British art from 1500 onwards and international modern and contemporary art from 1900 onwards. Most works given in lieu of tax date to after 1900, which suggests they are likely modern artworks allocated by the *Acceptance in Lieu* scheme[^4].
 
@@ -64,7 +64,7 @@ ggplot(why_year, aes(x = reason, y = year, size = n, colour = reason)) +
   coord_polar()
 ```
 
-{{< figure src="/img/2021-01-16_ggplot-3_polar.png" caption="Artwork by reason and year, using polar coordinates" alt="Plot of the Tate collection by reason for acquisition and year of artwork, using polar coordinates">}}
+{{< figure src="/img/post/2021-01-16_ggplot-3_polar.png" caption="Artwork by reason and year, using polar coordinates" alt="Plot of the Tate collection by reason for acquisition and year of artwork, using polar coordinates">}}
 
 Switching to polar coordinates has reduced the white space, but at the moment we're currently still colouring our points by reason. Let's use the year information to colour our points, the vertical (spoke) axis charts the year linearly, but let's extract the decade from the year and use that to colour the points, this would generate a banding through each reason's 'slice' of points. Let's also switch away from `{ggplot2}`'s native colour scale, after some experimentation I decided on the [inferno scale](https://ggplot2.tidyverse.org/reference/scale_viridis.html) from the Viridis set of colour scales.
 
@@ -82,7 +82,7 @@ ggplot(why_year, aes(x = reason, y = year, size = n, colour = decade)) +
   scale_colour_viridis_d(option = "inferno") 
 ```
 
-{{< figure src="/img/2021-01-16_ggplot-4.png" caption="Artwork by reason and year, using polar coordinates with points coloured by decade" alt="Plot of the Tate collection by reason for acquisition and year of artwork, using polar coordinates and using the decade of the artwork to colour each point">}}
+{{< figure src="/img/post/2021-01-16_ggplot-4.png" caption="Artwork by reason and year, using polar coordinates with points coloured by decade" alt="Plot of the Tate collection by reason for acquisition and year of artwork, using polar coordinates and using the decade of the artwork to colour each point">}}
 
 While this looks a bit like a pointillist painting, let's switch away from point to brush strokes, which we can do using `geom_path()`. `geom_path()` is usually used to create line graphs, it connects points in the order they are sequenced in the dataset, whereas `geom_line()` connects points in order via the x-axis. There didn't seem to be much difference between the two, but I decided to stick with path as there's no meaningful x-dimension for the positioning of the points within each slice, as it's a cateogrical x-axis the plots have been using the `position = "jitter"` argument to randomly distribute points within each category's domain in the x-axis. `geom_step()` is the other related geom, which is used to generate stair/step plots, it came out with interesting results but I preferred the visual imagery that came from using `geom_path()`[^5].
 
@@ -93,9 +93,9 @@ ggplot(why_year, aes(x = reason, y = year, size = n, colour = decade)) +
   scale_color_viridis_d(option = "inferno")
 ```
 
-{{< figure src="/img/2021-01-16_ggplot-5a_path.png" caption="Using geom_path instead of geom_point" alt="Plot of the Tate collection by reason for acquisition and year of artwork, using path segments instead of points">}}
+{{< figure src="/img/post/2021-01-16_ggplot-5a_path.png" caption="Using geom_path instead of geom_point" alt="Plot of the Tate collection by reason for acquisition and year of artwork, using path segments instead of points">}}
 
-{{< figure src="/img/2021-01-16_ggplot-5b_step.png" caption="Using geom_step instead of geom_point" alt="Plot of the Tate collection by reason for acquisition and year of artwork, using stepped line segments instead of points">}}
+{{< figure src="/img/post/2021-01-16_ggplot-5b_step.png" caption="Using geom_step instead of geom_point" alt="Plot of the Tate collection by reason for acquisition and year of artwork, using stepped line segments instead of points">}}
 
 So, let's now turn out `geom_path()` into more of an artwork. At the moment the spoke axis labels are horizontal, and while this is good for general readability, it's not art[^6], let's rotate the axis labels so that the align with the angle of their spoke. 
 
@@ -122,7 +122,7 @@ ggplot(why_year, aes(x = reason, y = year, size = n, colour = decade)) +
   scale_color_viridis_d(option = "inferno")
 ```
 
-{{< figure src="/img/2021-01-16_ggplot-6_labels.png" caption="Rotated text labels" alt="Plot with axis labels rotated to the angle of the spokes">}}
+{{< figure src="/img/post/2021-01-16_ggplot-6_labels.png" caption="Rotated text labels" alt="Plot with axis labels rotated to the angle of the spokes">}}
 
 Now let's start to consider theming our plot. We can work with a blank canvas by using `theme_void()` which removes background, gridlines, axis titles and labels[^7], and then use `theme()` to modify/add back in various theme elements. First let's get arty and use a black background, we'll also drop the legend (as which has also been applied in previous plots) and set a margin around the plot. We also need to give the text labels a colour (as their default is black).
 
@@ -146,7 +146,7 @@ ggplot(why_year, aes(x = reason, y = year, size = n, colour = decade)) +
   )
 ```
 
-{{< figure src="/img/2021-01-16_ggplot-7_black.png" caption="Black background" alt="Plot with the background set to black">}}
+{{< figure src="/img/post/2021-01-16_ggplot-7_black.png" caption="Black background" alt="Plot with the background set to black">}}
 
 That's definitely more like it. But let's add back some gridlines, we can use `geom_hline()` and `geom_vline()` to create custom gridlines on our plot[^8]. By putting our horizontal gridlines first and then adding black vertical gridlines that are offset by 0.5 we can generate arcs for each century from 1700 that sit under each set of paths. Let's also set the size to `log(n)` to reduce the variation in the width of the lines and make them look more like strokes using the same brush.
 
@@ -173,7 +173,7 @@ ggplot(why_year, aes(x = reason, y = year, size = n, colour = decade)) +
   )
 ```
 
-{{< figure src="/img/2021-01-16_ggplot-8_grid.png" caption="Plot with century arcs" alt="Plot with arc gridlines for each century">}}
+{{< figure src="/img/post/2021-01-16_ggplot-8_grid.png" caption="Plot with century arcs" alt="Plot with arc gridlines for each century">}}
 
 Now finally, let's use a more artistic font[^9] and add a title to the plot. I decided to use the [*Blackout* font family](https://www.theleagueofmoveabletype.com/blackout) by Tyler Finck at [The League of Moveable Type](https://www.theleagueofmoveabletype.com) which are a blocky set of fonts that has the interior holes of letters filled - the perfect fonts for some modern aRt.
 
@@ -211,7 +211,7 @@ p <- ggplot(why_year, aes(x = reason, y  = year, size = log(n), colour = decade)
 ggsave("file/path.png", p, width = 20, height = 25, units = "cm")
 ```
 
-{{< figure src="/img/2021-01-12_tate_reasons_art_final.png" alt="Final exported plot with title and all thematic elements applied">}}
+{{< figure src="/img/post/2021-01-12_tate_reasons_art_final.png" alt="Final exported plot with title and all thematic elements applied">}}
 
 And there we have it, my first piece of aRt.
 

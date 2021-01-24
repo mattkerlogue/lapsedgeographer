@@ -35,7 +35,7 @@ So the PDF scraping has been "automated" to just four functions, which means for
 
 Alternatively, we can let R do the hard work for us again. The [`{rvest}`](https://rvest.tidyverse.org) package provides a useful suite of functions to interact with, and extract, information from webpages. Webpages are written in [HTML](https://en.wikipedia.org/wiki/HTML), a structured markup language. It is this structure which `{rvest}` is going to interact with, so we need to explore and understand it.
 
-{{< figure src="/img/2020-04-12_google-covid-page-source.png" alt="Screenshot of the Google Mobility Report" caption="Screenshot of the download section of the Google COVID-19 Community Mobility Report webpage and its source code" captionPosition="left">}}
+{{< figure src="/img/post/2020-04-12_google-covid-page-source.png" alt="Screenshot of the Google Mobility Report" caption="Screenshot of the download section of the Google COVID-19 Community Mobility Report webpage and its source code" captionPosition="left">}}
 
 While set out like a table, the download section is actually a set of `<div>` elements. To cut a long ~~story~~ structure short, the download links for each country are contained within a `<div>` element that has a `class` attribute of "country-data", the links themselves use the standard HTML tag `<a>` which have the class attribute of "download-link". The URLs are contained in the `href` attribute of the `<a>` tags.
 

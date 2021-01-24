@@ -2,7 +2,7 @@
 title: "Virtual Gongoozling"
 author: Matt
 date: "2020-10-14"
-cover: "img/2020-10-14-rosie-jim.gif"
+cover: "img/post/2020-10-14-rosie-jim.gif"
 slug: virtual-gongoozling
 tags:
   - r

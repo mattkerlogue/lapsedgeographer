@@ -2,7 +2,7 @@
 title: "Planning our Twitter walk"
 date: 2021-01-10
 slug: tweet-walk-planning
-cover: "img/2021-01-10-dungeness_pebbles.jpg"
+cover: "img/post/2021-01-10-dungeness_pebbles.jpg"
 caption: "The pebble beach at Dungeness"
 tags:
   - r
@@ -79,7 +79,7 @@ All of the prior steps draw down data from other services, but this mapbot's nat
 
 [^2]: I was disappointed that Googling "funny lost walker stories" did not return anything worthy of comedy, "strange lost walker stories" largely gets you a lot of stories of mysterious and unexplained deaths. Do stay safe when out walking, make sure you prepare appropriately and try to avoid hazards, especially around coastal hazards (mudflats, marshes, cliffs, etc).
 
-[^3]: {{<figure src="/img/2021-01-10-pirate_doggo_smol.png" alt="a small cute dog dressed as a pirate saying: don't walk the planl, walk me instead">}}
+[^3]: {{<figure src="/img/post/2021-01-10-pirate_doggo_smol.png" alt="a small cute dog dressed as a pirate saying: don't walk the planl, walk me instead">}}
 
 [^4]: Arguably also required because this is will be an automated non-sentient bot and therefore needs a clear workflow in order to run. But that's just a minor technical detail.
 
