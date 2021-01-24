@@ -181,3 +181,7 @@ section.footnotes figure, section.footnotes div.video-player {
 section.footnotes img, section.footnotes div.video-player {
   border-width: 1px !important;
 }
+
+div.post-cover img {
+  margin: auto;
+}
