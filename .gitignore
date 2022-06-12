@@ -7,3 +7,5 @@
 *.DS_store
 
 public*
+
+.hugo_build.lock
