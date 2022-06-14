@@ -12,7 +12,7 @@ tags:
 
 TLDR: For very good reasons ODS is a horrible data file format.
 
-The OpenDocument Spreadsheet (ODS) format is an increasingly common format for publishing spreadsheets, especially official statistics from UK government departments. I recently encountered [a problem](https://github.com/chainsawriot/readODS/issues/81) when trying to use the [`{readODS}` package](https://cran.r-project.org/package=readODS) to read a published ODS file. More surprsingly, I discovered that {readODS} is the only R package on CRAN for working with ODS files. As a result I've started to develop my own package, [`{tidyods}`](https://mattkerlogue.github.io/tidyODS/).
+The OpenDocument Spreadsheet (ODS) format is an increasingly common format for publishing spreadsheets, especially official statistics from UK government departments. I recently encountered [a problem](https://github.com/chainsawriot/readODS/issues/81) when trying to use the [`{readODS}` package](https://cran.r-project.org/package=readODS) to read a published ODS file. More surprsingly, I discovered that {readODS} is the only R package on CRAN for working with ODS files. As a result I've started to develop my own package, [`{tidyods}`](https://mattkerlogue.github.io/tidyods/).
 
 {{< addTOC >}}
 
@@ -44,14 +44,14 @@ But in most programming languages there are usually multiple ways of doing thing
 In my investigations of the ODS XML to develop a fix for the bug in {readODS} I realised it would be relatively easy to write my own package to extract information from an ODS file and so I thought why not. Plus if I actually develop this properly it will mean I can go through the CRAN and/or rOpenSci submission processes.
 
 ## Introducing tidyods
-So without further ado, let me introduce to you the [`{tidyods}` package](https://mattkerlogue.github.io/tidyODS/), a package to import cells from ODS files. This package is more an equivalent to Duncan Garmonsway's [`{tidyxl}`](https://nacnudus.github.io/tidyxl/) package for ODS files, but also includes functions to produce similar output to {readODS}.
+So without further ado, let me introduce to you the [`{tidyods}` package](https://mattkerlogue.github.io/tidyods/), a package to import cells from ODS files. This package is more an equivalent to Duncan Garmonsway's [`{tidyxl}`](https://nacnudus.github.io/tidyxl/) package for ODS files, but also includes functions to produce similar output to {readODS}.
 
 At present {tidyods} provides four functions:
 
- - [`read_ods_cells()`](https://mattkerlogue.github.io/tidyODS/reference/read_ods_cells.html) to extract cells from an ODS file
- - [`read_ods_sheet()`](https://mattkerlogue.github.io/tidyODS/reference/read_ods_sheet.html) to extract the cells as a rectangular dataset
- - [`ods_sheets()`](https://mattkerlogue.github.io/tidyODS/reference/ods_sheets.html) to list the sheets in an ODS file
- - [`simple_rectify()`](https://mattkerlogue.github.io/tidyODS/reference/simple_rectify.html) to "rectify" cells into a rectangular dataset
+ - [`read_ods_cells()`](https://mattkerlogue.github.io/tidyods/reference/read_ods_cells.html) to extract cells from an ODS file
+ - [`read_ods_sheet()`](https://mattkerlogue.github.io/tidyods/reference/read_ods_sheet.html) to extract the cells as a rectangular dataset
+ - [`ods_sheets()`](https://mattkerlogue.github.io/tidyods/reference/ods_sheets.html) to list the sheets in an ODS file
+ - [`simple_rectify()`](https://mattkerlogue.github.io/tidyods/reference/simple_rectify.html) to "rectify" cells into a rectangular dataset
 
 In due course I'll write some further blogs on the detailed working of the package, but a brief discussion of these functions now follows.
 
