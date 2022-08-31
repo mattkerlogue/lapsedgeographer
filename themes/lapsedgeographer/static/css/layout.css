@@ -311,6 +311,18 @@ pre {
     margin: 30px 0px;
 }
 
+.codefold pre {
+    margin: 5px 0px;
+}
+
+.codefold summary {
+    color: var(--lg-accent);
+}
+
+.codefold summary span {
+    color: var(--lg-text);
+}
+
 .chroma {
     color: var(--lg-text);
 }
