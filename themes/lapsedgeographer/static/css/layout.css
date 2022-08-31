@@ -312,6 +312,7 @@ pre {
     border: 1px solid var(--lg-border);
     color: var(--lg-text);
     margin: 30px 0px;
+    font-size: 0.9rem;
 }
 
 .codefold pre {
