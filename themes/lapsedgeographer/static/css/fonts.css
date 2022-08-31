@@ -1,0 +1,19 @@
+
+/* Inter font */
+@import url("https://rsms.me/inter/inter.css");
+@import url('https://fonts.googleapis.com/css2?family=Fira+Code:wght@300;400;500;600;700&display=swap');
+
+h1, h2, h3, h4, h5, h6, figcaption, nav.site-nav a.site-title { 
+  font-family: 'Inter', sans-serif;
+}
+
+html { 
+  font-family: 'Fira Code', monospace;
+  font-weight: 300;
+}
+
+strong, b {
+  font-weight: 500
+}
+
+pre, code { font-family: 'Fira Code', monospace;}

@@ -1,0 +1,27 @@
+<head> 
+    <meta charset="UTF-8">
+    {{ if .IsHome }}
+    <title>{{ .Site.Title }}</title>
+    {{ else }}
+    <title>{{ .Site.Title }} &ndash; {{ .Title }}</title>
+    <meta name="description" content="{{ .Summary | markdownify }}">
+
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:creator" content="@mattkerlogue" />
+    <meta property="og:url" content="{{ .Permalink | absURL }}" />
+    <meta property="og:title" content="{{ .Title }} on {{ .Site.Title }}" />
+    <meta property="og:description" content="{{ .Summary }}" />
+    {{ with .Params.cover }}
+    <meta property="og:image" content="{{ . | absURL }}" />
+    {{ end }}
+
+    {{ end }}
+
+    <link href="{{ "css/fonts.css" | absURL}}" rel="stylesheet">
+    <link href="{{ "css/layout.css" | absURL}}" rel="stylesheet">
+
+    {{ if .Params.maps }}
+    {{ partial "leaflet-loader" . }}
+    {{ end }}
+
+</head>

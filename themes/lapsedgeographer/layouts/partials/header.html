@@ -1,0 +1,17 @@
+{{ if .IsHome }}
+<nav class="site-nav">
+{{ else }}
+<nav class="site-nav page-nav">
+{{ end }}
+    <div class="nav-content">
+        <a class="site-title" href="{{ .Site.BaseURL }}">{{ .Site.Title }}</a>
+        <div class="site-extra">
+        {{ with .Site.GetPage "/about" }}
+        <a class="site-about" href="{{ .Permalink }}">About</a>
+        {{ end }}
+        {{ with .Site.GetPage "/archive" }}
+        <a class="site-archive" href="{{ .Permalink }}">Archive</a>
+        {{ end }}
+        </div>
+    </div>
+</nav>

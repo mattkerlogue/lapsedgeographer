@@ -1,0 +1,22 @@
+baseURL: "https://lapsedgeographer.london/"
+title: The Lapsed Geographer
+languageCode: "en-gb"
+theme: "lapsedgeographer"
+paginate: 10
+summaryLength: 70
+
+permalinks:
+    post: "/:year-:month/:slug/"
+    page: "/:filename"
+
+markup:
+  markup.tableOfContents:
+    endLevel: 3
+    ordered: false
+    startLevel: 2
+  highlight:
+    noClasses: false
+
+outputFormats:
+    outputFormats.RSS:
+        baseName: "rss"
