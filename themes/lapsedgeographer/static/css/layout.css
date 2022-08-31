@@ -94,13 +94,13 @@ ul li:before {
 }
 
 nav.site-nav {
-    position: sticky;
     top: 0;
-    width: 100%;
+    width: calc(100%-20px);
     background-color: var(--lg-background);
     margin-top: 25px;
     margin-bottom: 5px;
     margin-left: 10px;
+    margin-right: 10px;
     border-bottom: 20px solid var(--lg-background);
     padding: 15px 0px;
 }
@@ -108,6 +108,8 @@ nav.site-nav {
 nav.site-nav div.nav-content {
     width: 100%;
     display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
     justify-content: space-between;
     align-items: baseline;
     padding-top: 20px;
@@ -173,7 +175,7 @@ nav.site-nav .site-extra {
 }
 
 main {
-    margin-left: 10px;
+    margin: 0px 10px;
 }
 
 .list-page-item {
@@ -209,6 +211,7 @@ main {
 
 .list-item-content {
     display: flex;
+    flex-wrap: wrap;
 }
 
 .list-item-content .cover-photo img {
@@ -459,4 +462,10 @@ section.footnotes figure {
 
 .footer a {
   color: var(--lg-accent);
+}
+
+@media (max-width: 700px) {
+    div.nav-content h1, div.nav-content .site-extra, .list-item-content .cover-photo, .list-item-content .summary {
+      flex: 100%;
+    }
 }
