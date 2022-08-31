@@ -15,7 +15,7 @@
                 {{ .Summary | markdownify }}
             {{ end }}
         </div>
-        <div class="read-more"><a href="{{ . | absURL }}">Read more →</a></div>
+        <div class="read-more"><a href="{{ .Permalink }}">Read more →</a></div>
     </div>
     {{ end }}
 </main>
