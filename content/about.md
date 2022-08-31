@@ -1,16 +1,15 @@
 ---
 author: Matt
 date: "2020-04-06"
-title: The Lapsed Geographer
+lastmod: "2022-08-31"
+title: About the Lapsed Geographer
 ---
-
-# Welcome
 
 Hi, I'm Matt, and more than anything this blog is a [reference library](https://www.rostrum.blog/2020/02/27/get-blogging/) so that I remember what I've done/learnt. It's also an attempt to motivate me to learn more, or rather learn in a more structured manner.
 
 Posts will mainly be on data science tools and techniques, largely (but not solely) in [R](https://www.r-project.org).
 
-I work for the UK Civil Service, specifically in the [Cabinet Office](https://www.gov.uk/cabinet-office). This is a personal blog and anything published here is my own thoughts and views. Nothing contained in this blog should be considered an official view or policy of the UK Government, any suggestions I make are my own recommendations and are not official endorsement.
+Until August 2022 I worked for the UK Civil Service, specifically in the [Cabinet Office](https://www.gov.uk/cabinet-office). Nothing written in this blog from before August 2022 should be considered an official view or policy of the UK Government, any suggestions I make are my own recommendations and are not official endorsement.
 
 Why *The Lapsed Geographer*? My academic background is in geography, and while geography and maps still hold a special place in my heart most of my work hasn't been very geographical for quite some time.
 

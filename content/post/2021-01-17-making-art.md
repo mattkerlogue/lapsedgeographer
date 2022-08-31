@@ -126,7 +126,7 @@ ggplot(why_year, aes(x = reason, y = year, size = n, colour = decade)) +
 
 Now let's start to consider theming our plot. We can work with a blank canvas by using `theme_void()` which removes background, gridlines, axis titles and labels[^7], and then use `theme()` to modify/add back in various theme elements. First let's get arty and use a black background, we'll also drop the legend (as which has also been applied in previous plots) and set a margin around the plot. We also need to give the text labels a colour (as their default is black).
 
-```
+```r
 ggplot(why_year, aes(x = reason, y = year, size = n, colour = decade)) + 
   geom_path(position = "jitter", alpha = 0.35) + 
   geom_text(data = why_year_reasons, 

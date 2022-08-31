@@ -1,5 +1,5 @@
 ---
-title: "# The intersectionality of Black Lives Matter, pride and being a civil servant and a data scientist"
+title: "The intersectionality of Black Lives Matter, pride and being a civil servant and a data scientist"
 author: Matt
 date: "2020-06-23"
 slug: intersectionality

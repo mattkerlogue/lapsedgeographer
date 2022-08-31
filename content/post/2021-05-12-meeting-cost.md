@@ -13,8 +13,6 @@ tags:
 
 No matter what job we do or who we work for all of us have been in [meetings that we knew weren't worth it](https://hbr.org/2017/07/stop-the-meeting-madness). For those of us in the public sector there's the added pressure knowing that we're paid by the taxpayer. A couple of weeks ago a friend who works in another government department (for arguments sake the Department for Action) was lamenting that they and their team of six were asked by a someone in another government department (let's say the Ministry of Meetings) to have a meeting with their team about a joint project they were working on. Come the time of the meeting my friend in DfA and her team all signed on to the virtual meeting, 10-15 minutes go by and none of the folk from MoM turn up. Not only is this wasted time, but time also means money, and in this case public money.
 
-<!--more-->
-
 When complaining to me about the saga my friend mentioned the [Meeting Cost Calculator](https://meetingcostcalculator.ca) that had been developed by some Canadian public servants, and mused that wouldn't it be nice if we could have one in the UK so that they could send a bill our friends in MoM for the cost to DoD of their no-show. And so, I made an entirely unofficial [HMG Meeting Cost Calculator](http://lapsedgeographer.shinyapps.io/meetingcost/) to estimate the cost of meetings of civil servants in the UK[^1].
 
 {{< addTOC >}}
