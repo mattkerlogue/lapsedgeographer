@@ -5,12 +5,18 @@
 <div class="post-meta">
   <div>
   {{ if .Params.Lastmod }}
+  {{ if eq .Params.Date .Params.Lastmod }}
+  <span class="post-date">
+    {{ .Date.Format "2006-01-02" }}
+  </span>
+  {{ else }}
   <span class="post-date">First written: 
   {{ .Date.Format "2006-01-02" }}
   </span>
   <span class="post-date">| Last modified: 
   {{ .Lastmod.Format "2006-01-02" }}
   </span>
+  {{ end }}
   {{ else }}
     {{ if .Params.Date }}
     <span class="post-date">

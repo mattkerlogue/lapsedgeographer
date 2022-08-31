@@ -1,17 +1,24 @@
 :root {
-    --lg-base-white: #FAFAFA;
+    /* Palette colours */
+    --lg-base-white: #F5F8FA;
     --lg-base-black: #222222;
     --lg-dark-green: #566B0A;
     --lg-light-green: #B6E01B;
-    --lg-deep-blue: #04202B;
+    --lg-deep-blue: #03171F;
     --lg-dark-blue: #0A4F6B;
     --lg-light-blue: #1BA8E0;
-    --lg-light-blue-alpha: #0A4F6B66;
+    --lg-dark-blue-alpha: #0A4F6B66;
+    /* Variables */
+    --lg-background: #F5F8FA;
+    --lg-background-2: #0A4F6B11;
+    --lg-text: #03171F;
+    --lg-border: #0A4F6B;
+    --lg-accent: #1BA8E0;
 }
 
 html {
-    background-color: var(--lg-deep-blue);
-    color: var(--lg-base-white);
+    background-color: var(--lg-background);
+    color: var(--lg-text);
 }
 
 body {
@@ -19,14 +26,23 @@ body {
 }
 
 h1, h2, h3, h4, h5, h6 {
-    color: var(--lg-light-blue);
+    color: var(--lg-border);
     margin-top: 30px;
     font-weight: 500;
 }
 
+h1.page-title {
+    font-size: 36px;
+    font-weight: 600;
+}
+
+p {
+    line-height: 1.4;
+}
+
 blockquote {
     display: block;
-    border-left: 2px solid var(--lg-light-blue);
+    border-left: 3px solid var(--lg-accent);
     padding-left: 20px;
     padding-top: 5px;
     padding-bottom: 5px;
@@ -54,7 +70,7 @@ ol li {
 }
 
 ol li:before {
-    color: var(--lg-light-blue);
+    color: var(--lg-accent);
     content: counter(li) ".";
     display: inline-block;
     position: absolute;
@@ -68,7 +84,7 @@ ul li {
 }
 
 ul li:before {
-    color: var(--lg-light-blue);
+    color: var(--lg-accent);
     content: "-";
     display: inline-block;
     position: absolute;
@@ -81,39 +97,48 @@ nav.site-nav {
     position: sticky;
     top: 0;
     width: 100%;
-    height: 25px;
-    background-color: var(--lg-deep-blue);
-    padding: 20px 0px;
+    background-color: var(--lg-background);
+    margin-top: 25px;
+    margin-bottom: 5px;
     margin-left: 10px;
-    border-bottom: 20px solid var(--lg-deep-blue);
+    border-bottom: 20px solid var(--lg-background);
+    padding: 15px 0px;
+}
+
+nav.site-nav div.nav-content {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding-top: 20px;
+    padding-bottom: 25px;
+    border-bottom: 3px dotted var(--lg-border);
+    border-top: 3px dotted var(--lg-border);
+}
+
+nav.site-nav.page-nav div.nav-content {
+    padding-top: 10px;
+    padding-bottom: 15px;
 }
 
 nav.site-nav.page-nav {
     position: relative;
 }
 
-nav.site-nav div.nav-content {
-    height: 25px;
-    padding-bottom: 10px;
-    margin-bottom: 5px;
-    border-bottom: 3px dotted var(--lg-light-blue);
+nav.site-nav h1.site-title {
+    padding: 0px;
+    margin: 0px;
 }
 
-nav.site-nav div.nav-content:after {
-    height: 0px;
-    bottom: 0px;
-    border-bottom: 3px dotted var(--lg-light-blue);
-    content: "";
-    position: absolute;
-    display: block;
-    width: 100%;
-}
-
-nav.site-nav a.site-title {
+nav.site-nav h1.site-title a {
     font-weight: 600;
-    font-size: 16px;
+    font-size: 36px;
     text-decoration: none;
-    color: var(--lg-light-blue);
+    color: var(--lg-border);
+}
+
+nav.site-nav.page-nav h1.site-title a {
+    font-size: 16px;
 }
 
 nav.site-nav .site-extra {
@@ -125,19 +150,22 @@ nav.site-nav .site-extra {
     font-family: Inter, sans-serif;
     font-size: 24px;
     margin-bottom: 50px;
-    padding-top: 10px;
-    border-top: 3px solid var(--lg-light-blue-alpha);
+    border-top: 1px solid var(--lg-border);
 }
 
 .homepage .archive-link a {
-    color: var(--lg-light-blue);
+    color: var(--lg-accent);
     text-decoration: none;
+    padding-top: 10px;
+    padding-right: 1.5rem;
+    border-top: 3px solid var(--lg-border);
+    display: inline-block;
 }
 
 .site-extra a {
     font-size: 12px;
     text-decoration: none;
-    color: var(--lg-base-white);
+    color: var(--lg-text);
 }
 
 .site-extra a:first-child {
@@ -151,31 +179,32 @@ main {
 .list-page-item {
     margin-top: 10px;
     margin-bottom: 50px;
-    padding-top: 5px;
-    border-top: 3px solid var(--lg-light-blue-alpha);
-}
-
-.list-page-item:first-child {
-    border-top: 0px;
+    border-top: 1px solid var(--lg-border);
 }
 
 .list-page-item h2 {
-    color: var(--lg-light-blue);
+    color: var(--lg-text);
     font-size: 24px;
+    padding-top: 5px;
+    margin-top:0px;
+    padding-right: 1.5rem;
+    border-top: 5px solid var(--lg-border);
+    display: inline-block;
 }
 
 .list-page-item h2 span.date {
-    font-weight: 200;
-    font-size: 16px;
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--lg-accent);
 }
 
 .list-page-item h2 a {
     text-decoration: none;
     font-weight: 400;
-    color: var(--lg-light-blue);
+    color: var(--lg-border);
     padding-left: 10px;
-    border-left: 5px solid var(--lg-light-blue-alpha);
-    margin-left: 10px;
+    /*border-left: 2px solid var(--lg-accent);
+    margin-left: 10px;*/
 }
 
 .list-item-content {
@@ -184,7 +213,8 @@ main {
 
 .list-item-content .cover-photo img {
     padding: 10px;
-    border: 1px solid var(--lg-light-blue);
+    border: 2px solid var(--lg-accent);
+    background-color: var(--lg-background-2);
 }
 
 .list-item-content .summary {
@@ -201,12 +231,12 @@ main {
 
 .list-page-item .read-more a {
     text-decoration: none;
-    color: var(--lg-base-white);
+    color: var(--lg-accent);
 }
 
 .post-cover {
     padding: 20px;
-    border: 10px solid var(--lg-light-blue-alpha);
+    border: 4px solid var(--lg-accent);
     margin-bottom: 30px;
 }
 
@@ -219,17 +249,18 @@ main {
     font-size: 0.9em;
     font-family: Inter, sans-serif;
     margin-top: 10px;
+    color: var(--lg-accent);
 }
 
 .cover-caption a {
-    color: var(--lg-base-white);
+    color: var(--lg-accent);
 }
 
 figure {
-    background-color: var(--lg-light-blue-alpha);
-    border: 2px solid var(--lg-light-blue-alpha);
+    border: 2px solid var(--lg-accent);
     padding: 10px;
-    margin: 0px;
+    margin: 10px 0px;
+    width: 95%;
 }
 
 figure img {
@@ -237,7 +268,7 @@ figure img {
 }
 
 figcaption {
-    color: var(--lg-base-white);
+    color: var(--lg-accent);
     font-weight: 300;
     padding: 10px;
 }
@@ -247,19 +278,19 @@ figcaption p {
 }
 
 .page-content a {
-    color: var(--lg-base-white)
+    color: var(--lg-accent)
 }
 
 .page-content h2, .page-content h3, .page-content h4 {
     display: inline-block;
-    padding-right: 0.5em;
+    padding-right: 1.5rem;
     padding-bottom: 2px;
-    border-bottom: 5px solid var(--lg-light-blue-alpha);
+    border-bottom: 5px solid var(--lg-border);
 }
 
 p code {
-    color: var(--lg-light-blue);
-    background-color: var(--lg-light-blue-alpha);
+    color: var(--lg-accent);
+    background-color: var(--lg-background-2);
     padding: 0px 0.25em;
 }
 
@@ -269,32 +300,33 @@ a code {
 
 
 pre {
+    background-color: var(--lg-background-2);
     white-space: pre !important;
     word-wrap: normal !important;
     width: 95%;
     overflow: scroll;
     padding: 10px;
-    border: 2px solid var(--lg-light-blue-alpha);
-    color: var(--lg-light-blue);
+    border: 1px solid var(--lg-border);
+    color: var(--lg-text);
     margin: 30px 0px;
 }
 
 .chroma {
-    color: var(--lg-base-white);
+    color: var(--lg-text);
 }
 
 .chroma .o {
-    color: var(--lg-light-blue);
+    color: var(--lg-accent);
 }
 
 .chroma .m, .chroma .s, .chroma .kc {
-    color: var(--lg-light-green);
+    color: var(--lg-dark-green);
 }
 
 .footnotes {
     margin-top: 50px;
     font-size: 0.8em;
-    border-top: 1px solid var(--lg-light-blue);
+    border-top: 1px dashed var(--lg-accent);
 }
 
 .footnotes hr {
@@ -305,45 +337,61 @@ pre {
     display: block;
     content: "FOOTNOTES";
     margin-left: -40px;
-    color: var(--lg-light-blue);
+    color: var(--lg-accent);
     font-weight: 500;
 }
 
+a.footnote-ref {
+    color: var(--lg-accent);
+}
+
 a.footnote-backref {
-    color: var(--lg-light-blue)
+    color: var(--lg-accent);
+}
+
+.archive-year {
+    border-top: 1px solid var(--lg-border);
 }
 
 .archive-year h2 {
-    border-top: 10px solid var(--lg-light-blue-alpha);
+    border-top: 5px solid var(--lg-border);
     font-size: 24px;
     font-weight: 400;
-    padding: 5px 10px;
+    padding-top: 10px;
+    padding-left: 5px;
+    padding-right: 1.5rem;
+    margin: 0px;
+    display: inline-block
 }
 
 .archive-date, .archive .reading-time {
     font-size: 0.8em;
+    color: var(--lg-accent);
 }
 
 .archive-post {
     font-family: Inter, sans-serif;
-    color: var(--lg-light-blue);
+    color: var(--lg-border);
     font-size: 1.1em;
+}
+
+.archive-list li {
+    padding: 2px 0px;
 }
 
 .post-meta {
     margin-bottom: 20px;
-    color: var(--lg-light-blue);
+    color: var(--lg-text);
     font-size: 0.9em;
 }
 
 .post-meta a {
-    color: var(--lg-light-blue);
+    color: var(--lg-accent);
     text-decoration: none;
 }
 
 .map-container {
-    background-color: var(--lg-light-blue-alpha);
-    border: 2px solid var(--lg-light-blue-alpha);
+    border: 2px solid var(--lg-accent);
     padding: 10px;
     margin: 0px;
 }
@@ -357,8 +405,7 @@ a.footnote-backref {
     font-weight: 300;
     padding: 5px 10px;
     margin-top: 5px;
-    background: var(--accent);
-    color: var(--background);
+    color: var(--lg-accent);
     text-align: left !important;
 }
   
@@ -366,7 +413,7 @@ a.footnote-backref {
   position: relative;
   width: 100% !important;
   padding-bottom: calc(9/16*100%);
-  border: 1px solid var(--lg-light-blue);
+  border: 2px solid var(--lg-accent);
 }
 
 .video-player iframe {
@@ -382,21 +429,22 @@ section.footnotes .video-player {
     padding-bottom: calc(9/16*50%);
     margin-top: 10px;
     margin-bottom: 20px;
-  }
-  
-  section.footnotes figure {
+}
+
+section.footnotes figure {
     max-width: 50%;
-  }
+}
 
-  .footer {
-    margin-top: 100px;
-    padding: 10px 0px;
-    margin-bottom: 50px;
-    border-top: 1px solid var(--lg-light-blue-alpha);
-    color: var(--lg-light-blue);
-    font-size: 0.8em;
-  }
+.footer {
+   margin-top: 100px;
+   margin-bottom: 50px;
+   margin-left: 10px;
+   padding: 10px 0px;
+   border-top: 1px dashed var(--lg-border);
+   color: var(--lg-accent);
+   font-size: 0.8em;
+}
 
-  .footer a {
-    color: var(--lg-light-blue);
-  }
+.footer a {
+  color: var(--lg-accent);
+}
