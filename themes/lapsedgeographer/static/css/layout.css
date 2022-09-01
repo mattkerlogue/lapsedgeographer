@@ -211,7 +211,7 @@ main {
 
 .list-item-content {
     display: flex;
-    flex-wrap: wrap;
+    flex-direction: row;
 }
 
 .list-item-content .cover-photo img {
@@ -222,10 +222,6 @@ main {
 
 .list-item-content .summary {
     padding-inline-start: 10px;
-}
-
-.list-item-content {
-    display: flex;
 }
 
 .list-page-item .read-more {
@@ -467,6 +463,10 @@ section.footnotes figure {
 
 @media (max-width: 700px) {
     div.nav-content h1, div.nav-content .site-extra, .list-item-content .cover-photo, .list-item-content .summary {
-      flex: 100%;
+        flex: 100%;
     }
+    div.nav-content, .list-item-content {
+        flex-direction: column;
+    }
+    
 }
