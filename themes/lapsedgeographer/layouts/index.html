@@ -13,7 +13,7 @@
             {{ if .Description }}
                 {{ .Description | markdownify }}
             {{ else }}
-                {{ .Summary | markdownify }}
+                {{ .Summary | plainify | htmlUnescape }}
             {{ end }}
             <div class="read-more"><a href="{{ .Permalink }}">Read more →</a></div>
         </div>

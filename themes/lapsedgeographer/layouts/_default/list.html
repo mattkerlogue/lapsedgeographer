@@ -2,7 +2,8 @@
 <main class="list-page" aria-role="main">
     {{ range .Pages }}
     <div class="list-page-item">
-        <h2><span class="date">{{ .Date.Format "2006-01-02" }}</span><a href="{{.Permalink}}"><span class="title">{{ .Title }}</span></a></h2>
+        <h2 class="list-item-heading"><span class="date">{{ .Date.Format "2006-01-02" }}</span><a href="{{.Permalink}}"><span class="title">{{ .Title }}</span></a></h2>
+        <div class="list-item-content">
         <div class="cover-photo">
             {{ with .Params.cover }}
             <img src="{{ . | absURL }}" width="300">
@@ -12,10 +13,11 @@
             {{ if .Description }}
                 {{ .Description | markdownify }}
             {{ else }}
-                {{ .Summary | markdownify }}
+                {{ .Summary }}
             {{ end }}
+            <div class="read-more"><a href="{{ .Permalink }}">Read more →</a></div>
         </div>
-        <div class="read-more"><a href="{{ .Permalink }}">Read more →</a></div>
+        </div>
     </div>
     {{ end }}
 </main>
