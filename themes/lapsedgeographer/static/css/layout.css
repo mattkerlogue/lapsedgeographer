@@ -288,7 +288,7 @@ figcaption p {
     border-bottom: 5px solid var(--lg-border);
 }
 
-p code {
+p code, li code {
     color: var(--lg-accent);
     background-color: var(--lg-background-2);
     padding: 0px 0.25em;
