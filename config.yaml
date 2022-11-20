@@ -21,6 +21,18 @@ outputFormats:
     outputFormats.RSS:
         baseName: "rss"
 
+menu:
+  links:
+    - name: GitHub
+      url: https://www.github.com/mattkerlogue
+      weight: 100
+    - name: Mastodon
+      url: https://fosstodon.org/@mattkerlogue
+      weight: 200
+    - name: Twitter
+      url: https://twitter.com/mattkerlogue
+      weight: 200
+
 privacy:
   disqus:
     disable: true

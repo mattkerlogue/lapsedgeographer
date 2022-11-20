@@ -462,6 +462,17 @@ section.footnotes figure {
   color: var(--lg-accent);
 }
 
+ul.profile-links {
+    display: inline-block;
+    margin: 0px;
+    padding: 0px;;
+    list-style: none;
+}
+
+li.profile-link {
+    display: inline-block;
+}
+
 @media (max-width: 700px) {
     div.nav-content h1, div.nav-content .site-extra, .list-item-content .cover-photo, .list-item-content .summary {
         flex: 100%;
