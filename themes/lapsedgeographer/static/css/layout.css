@@ -436,7 +436,7 @@ a.footnote-backref {
   height: calc(100% - 20px);
 }
 
-section.footnotes .video-player {
+.footnotes .video-player {
     position: relative;
     width: 50% !important;
     padding-bottom: calc(9/16*50%);
@@ -444,8 +444,11 @@ section.footnotes .video-player {
     margin-bottom: 20px;
 }
 
-section.footnotes figure {
+.footnotes figure {
+    width: 50%;
     max-width: 50%;
+    padding: 5px;
+    border-width: 1px;
 }
 
 .footer {

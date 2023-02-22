@@ -1,4 +1,5 @@
 {{ define "main" }}
+{{ $coveralt := "" }}
 <main>
 <h1 class="page-title">{{ .Title }}</h1>
 
@@ -35,16 +36,24 @@
   {{ if .Params.tags }}
   <span class="post-tags">
     {{ range .Params.tags }}
-    #<a href="{{ (urlize (printf "tags/%s/" .)) | absLangURL }}">{{ . }}</a>&nbsp;
+    <a href="{{ (urlize (printf "tags/%s/" .)) | absLangURL }}">#{{ . }}</a>&nbsp;
     {{ end }}
   </span>
   {{ end }}
   </div>
 </div>
 
-{{ with .Params.Cover }}
-<div class = "post-cover">
-  <img src="{{ . | absURL }}" />
+{{ if isset .Params "cover_alt" }}
+  {{ $coveralt := .Params.cover_alt }}
+  {{ with .Params.Cover }}
+  <div class="post-cover">
+    <img src="{{ . | absURL }}" alt="{{ $coveralt }}" />
+  {{ end }}
+{{ else }}
+  {{ with .Params.Cover }}
+  <div class="post-cover">
+    <img src="{{ . | absURL }}" />
+  {{ end }}
 {{ end }}
 
 {{ with .Params.caption }}
