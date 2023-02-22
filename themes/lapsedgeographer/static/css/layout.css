@@ -237,6 +237,7 @@ main {
 .post-cover {
     padding: 20px;
     border: 4px solid var(--lg-accent);
+    background-color: var(--lg-background-2);
     margin-bottom: 30px;
 }
 
@@ -258,6 +259,7 @@ main {
 
 figure {
     border: 2px solid var(--lg-accent);
+    background-color: var(--lg-background-2);
     padding: 10px;
     margin: 10px 0px;
     width: 95%;
@@ -356,10 +358,12 @@ pre {
 
 a.footnote-ref {
     color: var(--lg-accent);
+    text-decoration: none;
 }
 
 a.footnote-backref {
     color: var(--lg-accent);
+    text-decoration: none;
 }
 
 .archive-year {
@@ -474,6 +478,10 @@ ul.profile-links {
 
 li.profile-link {
     display: inline-block;
+}
+
+sup {
+    padding-left: 2px;
 }
 
 @media (max-width: 700px) {
