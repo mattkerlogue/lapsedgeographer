@@ -1,0 +1,10 @@
+{{ define "main" }}
+<main class="list-page" aria-role="main">
+    <h1>{{ .Title }}</h1>
+    <div class="tags-list">
+    {{ range .Data.Terms.ByCount }}
+    <a class="tag-list-item" href="{{ .Page.Permalink }}"><span class="tag-term">{{ .Term }}</span>&nbsp;<span class="tag-count">({{ .Count }} posts)</span></a>
+    {{ end }}
+    </div>
+</main>
+{{ end }}

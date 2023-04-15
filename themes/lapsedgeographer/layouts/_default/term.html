@@ -1,0 +1,28 @@
+{{ define "main" }}
+<main class="list-page" aria-role="main">
+    <div class="tag-page-heading">
+    <h1>Posts tagged: {{ .Title }}</h1>
+    <div class="post-meta">{{ len .Pages }} posts <a href="{{ relref . "/tags"}}">(view all tags)</a></div>
+    </div>
+    {{ range .Pages }}
+    <div class="list-page-item">
+        <h2 class="list-item-heading"><span class="date">{{ .Date.Format "2006-01-02" }}</span><a href="{{.Permalink}}"><span class="title">{{ .Title }}</span></a></h2>
+        <div class="list-item-content">
+        <div class="cover-photo">
+            {{ with .Params.cover }}
+            <img src="{{ . | absURL }}" width="300">
+            {{ end }}
+        </div>
+        <div class="summary">
+            {{ if .Description }}
+                {{ .Description | markdownify }}
+            {{ else }}
+                {{ .Summary }}
+            {{ end }}
+            <div class="read-more"><a href="{{ .Permalink }}">Read more →</a></div>
+        </div>
+        </div>
+    </div>
+    {{ end }}
+</main>
+{{ end }}

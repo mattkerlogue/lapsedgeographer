@@ -210,6 +210,37 @@ main {
     margin-left: 10px;*/
 }
 
+a.tag-list-item {
+    display: inline-block;
+    text-decoration: none;
+    padding-right: 0.5em;
+    line-height: 2em;
+}
+
+a.tag-list-item:last-child {
+    padding-right: unset;
+}
+
+.tag-list-item .tag-term {
+    color: var(--lg-border);
+    font-size: 24px;
+    font-weight: 400;
+}
+
+.tag-list-item .tag-count {
+    font-weight: 400;
+    font-size: 14px;
+    color: var(--lg-accent);
+}
+
+div.tag-page-heading {
+    margin-block-end: 40px;
+}
+
+div.tag-page-heading h1 {
+    margin-block-end: 0px;
+}
+
 .list-item-content {
     display: flex;
     flex-direction: row;

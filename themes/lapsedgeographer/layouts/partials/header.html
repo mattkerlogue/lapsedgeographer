@@ -14,6 +14,9 @@
             {{ with .Site.GetPage "/archive" }}
             <a class="site-archive" href="{{ .Permalink }}">Archive</a>
             {{ end }}
+            {{ with .Site.GetPage "/tags" }}
+            <a class="site-archive" href="{{ .Permalink }}">Tags</a>
+            {{ end }}
         </div>
     </div>
 </nav>

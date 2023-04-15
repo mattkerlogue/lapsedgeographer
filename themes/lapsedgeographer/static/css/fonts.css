@@ -17,3 +17,7 @@ strong, b {
 }
 
 pre, code { font-family: 'Fira Code', monospace;}
+
+a.tag-list-item {
+  font-family: 'Inter', sans-serif;
+}
