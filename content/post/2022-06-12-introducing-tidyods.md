@@ -6,7 +6,7 @@ caption: <a href=\"https://unsplash.com/photos/3y1zF4hIPCg?utm_source=unsplash&u
 slug: introducing-tidyods
 tags:
   - r
-  - packge
+  - package
   - tidyods
 ---
 
