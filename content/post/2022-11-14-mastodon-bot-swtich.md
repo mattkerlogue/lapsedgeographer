@@ -10,6 +10,7 @@ tags:
   - twitter
   - mastodon
   - github-actions
+  - narrowbotr
 ---
 
 Two years and one month ago to the day I blogged about setting up the

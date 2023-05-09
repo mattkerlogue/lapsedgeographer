@@ -10,6 +10,7 @@ tags:
   - flickr
   - twitter
   - mastodon
+  - narrowbotr
 ---
 
 Back in November after the various developments with Twitter, I
