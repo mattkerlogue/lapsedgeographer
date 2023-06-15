@@ -10,7 +10,6 @@ tags:
   - hugo
   - future
   - legacy
-draft: true
 ---
 
 I created [`govukhugo`](https://github.com/co-analysis/govukhugo) in my last
