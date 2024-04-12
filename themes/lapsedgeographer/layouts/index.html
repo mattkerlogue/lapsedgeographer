@@ -1,14 +1,15 @@
 {{ define "main" }}
 <main class="homepage" aria-role="main" >
     {{ range first 5 (where .Site.RegularPages "Section" "post") }}
+    {{ $postpath := .Permalink }}
     <div class="list-page-item">
         <h2 class="list-item-heading"><span class="date">{{ .Date.Format "2006-01-02" }}</span><a href="{{.Permalink}}"><span class="title">{{ .Title }}</span></a></h2>
         <div class="list-item-content">
         <div class="cover-photo">
             {{ with .Params.cover }}
-            <img src="{{ . | absURL }}" width="300">
+            <a href="{{ $postpath }}"><img src="{{ . | absURL }}" width="300"></a>
             {{ end }}
-        </div>
+        </div>ç
         <div class="summary">
             {{ if .Description }}
                 {{ .Description | markdownify }}
