@@ -9,7 +9,7 @@
             {{ with .Params.cover }}
             <a href="{{ $postpath }}"><img src="{{ . | absURL }}" width="300"></a>
             {{ end }}
-        </div>ç
+        </div>
         <div class="summary">
             {{ if .Description }}
                 {{ .Description | markdownify }}
