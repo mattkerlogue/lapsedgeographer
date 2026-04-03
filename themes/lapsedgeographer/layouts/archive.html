@@ -4,7 +4,7 @@
 
     <h1>All posts</h1>
 
-    {{ range ((where .Site.RegularPages "Type" "post").GroupByDate "2006") }}
+    {{ range ((where .Site.RegularPages "Section" "post").GroupByDate "2006") }}
     <div class="archive-year"><h2>{{ .Key }}</h1></div>
     
     <ul class="archive-list">

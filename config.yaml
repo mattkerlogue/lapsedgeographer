@@ -7,7 +7,7 @@ summaryLength: 70
 
 permalinks:
     post: "/:year-:month/:slug/"
-    page: "/:filename"
+    page: "/:contentbasename"
 
 markup:
   markup.tableOfContents:
@@ -16,6 +16,9 @@ markup:
     startLevel: 2
   highlight:
     noClasses: false
+  goldmark:
+    renderer:
+      unsafe: true
 
 outputFormats:
     outputFormats.RSS:
@@ -28,9 +31,9 @@ menu:
       weight: 100
     - name: Mastodon
       url: https://fosstodon.org/@mattkerlogue
-      weight: 200
-    - name: Twitter
-      url: https://twitter.com/mattkerlogue
+      weight: 300
+    - name: Bluesky
+      url: https://bsky.app/profile/matt.kerlogue.co.uk
       weight: 200
 
 privacy:
@@ -38,11 +41,18 @@ privacy:
     disable: true
   googleAnalytics:
     disable: true
+    respectDoNotTrack: true
   instagram:
-    disable: true
-  twitter:
-    disable: true
+    disable: false
+    simple: true
   vimeo:
+    disable: false
+    enableDNT: true
+    simple: true
+  x:
     disable: true
-  youtube:
-    disable: true
+    enableDNT: true
+    simple: true
+  youTube:
+    disable: false
+    privacyEnhanced: true

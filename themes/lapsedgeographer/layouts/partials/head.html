@@ -6,9 +6,6 @@
     {{ else }}
     <title>{{ .Site.Title }} &ndash; {{ .Title }}</title>
     <meta name="description" content="{{ .Summary | markdownify }}">
-
-    <meta name="twitter:card" content="summary" />
-    <meta name="twitter:creator" content="@mattkerlogue" />
     <meta property="og:url" content="{{ .Permalink | absURL }}" />
     <meta property="og:title" content="{{ .Title }} on {{ .Site.Title }}" />
     <meta property="og:description" content="{{ .Summary }}" />
