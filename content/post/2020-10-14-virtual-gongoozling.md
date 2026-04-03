@@ -16,6 +16,17 @@ tags:
 
 I’m sure I’m not the first person, and won’t be the last, to remark that 2020 is a very strange year. October 2020 marks five years since I last went on a canal boat holiday. An anniversary that at the outset of this year I had hoped I might have managed to avoid by taking to the water sometime over the summer. So, inspired by Matt Dray's [recent adventures](https://www.rostrum.blog/2020/09/21/londonmapbot/) in location-based Twitter-botting, I wondered whether it might be possible to make a Twitter bot that showcased features of the British canal network. So let me introduce you to [`narrowbotR`](https://twitter.com/narrowbotR) … see what I did there, an R based twitter bot that does things narrowboats do.
 
+<!--more-->
+
+<em>
+Note: This content was originally written about developing a bot for Twitter
+(now X). As of 2023 the bot was also migrated to Mastodon following changes to
+to Twitter's terms of service. The bot's account on Twitter/X was deactivated
+in 2025. In late 2024 the bot was also began posting to Blueskey. As of
+mid-2025 the bot has been dormant owing to a configuration issue between the
+R code for posting to Bluesky and Github Actions that I've not managed to solve.
+</em>
+
 {{< addTOC >}}
 
 ## How it works
@@ -576,8 +587,9 @@ Now let's run our R scripts, first off let's install the packages needed to run 
 
 And voila, we have ourselves Twitter bot of the Canal and River Trust network. Why not give it a follow, and get tweets like the following.
 
-A tweet with aerial photography:
-{{< tweet 1316007665592655873 >}}
+See below for examples of the bot's posts.
+*Owing to the deactivation of the bot's Twitter account in 2025 these have been taken from its [Bluesky account](https://bsky.app/profile/narrowbotr.bsky.social).*
 
-A tweet with Flickr photography:
-{{< tweet 1316457950215647241 >}}
+{{< figure src="/img/post/2026-04-03_narrowbot_bluesky_w-aerial.png" alt="Screenshot of a Narrowbot post with aerial photography" >}}
+
+{{< figure src="/img/post/2026-04-03_narrowbot_bluesky_w-flickr.png" alt="Screenshot of a Narrowbot post with an image from Flickr" >}}

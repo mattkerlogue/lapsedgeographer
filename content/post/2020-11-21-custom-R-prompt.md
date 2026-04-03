@@ -295,6 +295,6 @@ If you want to have the same console experience as me, then full code for my pro
 
 [^2]: There might be a way, it just broke every time I tried.
 
-[^3]: It's far too complicated to go into, some useful discussion [here](https://rstats.wtf/r-startup.html), and nicely summed up in this tweet. {{<tweet 961553618196418560>}}
+[^3]: It's far too complicated to go into but there's some useful discussion (and flowcharts) [here](https://rstats.wtf/r-startup.html).
 
 [^4]: Yes, I have a folder called `mattR`, what's the matter with that. As a matter of fact, mattR is actually a [package](https://github.com/mattkerlogue/mattR) of some custom functions, including my custom prompt so that it's easy to deploy on both my personal and work devices.

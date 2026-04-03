@@ -12,13 +12,11 @@ tags:
   - aRt
 ---
 
-One of my 2021 resolutions was to engage with [Tidy Tuesday](https://github.com/rfordatascience/tidytuesday) more often. I’ve dabbled in the past but never recorded my work or published it. This week’s data was a catalogue of the [Tate collection](https://www.tate.org.uk/about-us/collection), and there have been some rather [fantastic visualisations](https://twitter.com/search?q=%23TidyTuesday%20tate)[^1], no doubt inspired by the fact the subject matter is art.
+One of my 2021 resolutions was to engage with [Tidy Tuesday](https://github.com/rfordatascience/tidytuesday) more often. I’ve dabbled in the past but never recorded my work or published it. This week’s data was a catalogue of the [Tate collection](https://www.tate.org.uk/about-us/collection), and there have been some rather [fantastic visualisations](https://twitter.com/search?q=%23TidyTuesday%20tate), no doubt inspired by the fact the subject matter is art.
 
 The other week I saw a tweet by [Ijeamaka Anyene](https://twitter.com/ijeamaka_a) showcasing some fabulous artistic plots made in R by using the  `coord_polar()` function within `{ggplot2}`. So I’ve had art on my mind recently and seeing the outputs of this week’s Tidy Tuesday working with the Tate collection reminded me that I had promised to engage with Tidy Tuesday more routinely.
 
-{{< tweet 1346159762870681601 >}}
-
-This week's data comprised two datasets, one containing information on artists and one on artworks. One of the largest components of the Tate Collection is a large volume of works by JMW Turner[^2] as a result of his will gifting them to the nation when he died. But what about the other works in the Tate’s collection, how did they come to be part of it. I decided that I’d try to find a way of visualising this. Within the `artworks` dataset there is a column called `creditLine` that provides details on how each artwork came to be part of the Tate collection. Through some initial investigations of the dataset I developed some code to categorise artworks into one of 12 acquisition reasons:
+This week's data comprised two datasets, one containing information on artists and one on artworks. One of the largest components of the Tate Collection is a large volume of works by JMW Turner as a result of his will gifting them to the nation when he died. But what about the other works in the Tate’s collection, how did they come to be part of it. I decided that I’d try to find a way of visualising this. Within the `artworks` dataset there is a column called `creditLine` that provides details on how each artwork came to be part of the Tate collection. Through some initial investigations of the dataset I developed some code to categorise artworks into one of 12 acquisition reasons:
 
 1. `art fund` - purchases assisted by the [Art Fund](https://www.artfund.org)
 1. `artist rooms` - works in the [ARTIST ROOMS](https://www.tate.org.uk/artist-rooms) collection
@@ -214,10 +212,6 @@ ggsave("file/path.png", p, width = 20, height = 25, units = "cm")
 {{< figure src="/img/post/2021-01-12_tate_reasons_art_final.png" alt="Final exported plot with title and all thematic elements applied">}}
 
 And there we have it, my first piece of aRt.
-
-[^1]: I particularly liked this Kandinsky inspired visualisation. {{< tweet 1349778199589359618 >}}
-
-[^2]: These tree maps of the collection by artist demonstrating the sheer volume of works by Turner in the collection reminded me of the Turner bequest and got me thinking about the various different ways the Tate has acquired artwork. {{< tweet 1349463167747960835 >}}
 
 [^3]: The code covering my initial investigations of the dataset is [here](https://github.com/mattkerlogue/tidytuesday/blob/main/2021/2021-01-12_scratchpad.R)
 
