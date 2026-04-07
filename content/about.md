@@ -55,10 +55,14 @@ code on [GitHub](https://github.com/mattkerlogue), or read my
 
 # Privacy
 
-This website does not collect user data, it does not use cookies or advanced
-analytics. Third-party content (e.g. from Youtube) is occasionally embedded in
-the site's main content, as far as possible this has done using the privacy
-enhancing methods available within Hugo (the framework used to build this site).
+This website does not collect user data and it does not use cookies.
+Anonymous privacy protecting analytics provided by
+[Plausible](https://plausible.io) are currently being used to monitor site usage
+owing to a significant bandwidth drain likely to determine if this is due to
+excessive scraping by AI systems. Third-party content (e.g. from Youtube) is
+occasionally embedded in the site's main content, as far as possible this has
+done using the privacy enhancing methods available within Hugo (the framework
+used to build this site).
 
 # Terms of use
 
